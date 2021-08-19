@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { InputStyleDiv } from "../../styleComponents/Container/Input_styled";
 
@@ -10,9 +10,8 @@ const InputField = ({
   type,
   onChange,
   name,
+  onBlur,
 }) => {
-  const [error, setError] = useState(false);
-
   return (
     <InputStyleDiv>
       {label && <label>{label}</label>}
@@ -22,8 +21,8 @@ const InputField = ({
         placeholder={placeholder}
         onChange={onChange}
         name={name}
+        onBlur={onBlur}
       />
-      {error && <span></span>}
     </InputStyleDiv>
   );
 };
@@ -36,6 +35,7 @@ InputField.propTypes = {
   name: PropTypes.string,
   validation: PropTypes.array,
   onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func,
 };
 
 InputField.defaultProps = {
@@ -45,6 +45,7 @@ InputField.defaultProps = {
   placeholder: "",
   type: "text",
   validation: [],
+  onBlur: () => {},
 };
 
 export default InputField;

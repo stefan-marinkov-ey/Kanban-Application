@@ -28,9 +28,11 @@ const ModalEditNewCard = ({
   cardDesc,
   cardColor,
 }) => {
-  const [cardEditName, setCardEditName] = useState(cardName);
-  const [cardEditDescription, setCardEditDescription] = useState(cardDesc);
-  const [cardEditColor, setCardEditColor] = useState(cardColor);
+  const [cardEditName, setCardEditName] = useState(cardName || "");
+  const [cardEditDescription, setCardEditDescription] = useState(
+    cardDesc || ""
+  );
+  const [cardEditColor, setCardEditColor] = useState(cardColor || "");
 
   const handleChangeName = async (e) => {
     let value = e.target.value;

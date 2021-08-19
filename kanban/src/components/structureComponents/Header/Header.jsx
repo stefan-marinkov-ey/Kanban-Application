@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "../../reusableComponents/Button";
 import { logout, useAuthDispatch, useAuthState } from "../../../Context";
-import { themes } from "../../../Context/actions";
+import { getBoardData, themes } from "../../../Context/actions";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import { getBoard } from "../../../utility/constantsKeysAndUrl";
 import { HeaderStyle } from "../../styleComponents/Container/Header_style";
@@ -13,10 +13,9 @@ import {
 } from "../../../utility/constantsText";
 import { loginRoute } from "../../../utility/constantsWithRoutesAndMethods";
 const Header = (props) => {
-  const [boardName, setBoardName] = useState("");
-
   const user = useAuthState();
   const theme = useAuthState();
+  const nameBoard = useAuthState();
   const [lightText, setLightText] = useState(false);
   const [themeColor, setThemeColor] = useState(`${darkMode}`);
   const dispatch = useAuthDispatch();
@@ -35,10 +34,11 @@ const Header = (props) => {
   useEffect(() => {
     async function getBoardName() {
       let response = await httpRequest(getBoard);
-      setBoardName(response.responseData.data.name);
+
+      getBoardData(dispatch, response.responseData.data.name);
     }
     getBoardName();
-  }, []);
+  }, [dispatch]);
 
   return (
     <HeaderStyle>
@@ -58,14 +58,14 @@ const Header = (props) => {
         />
       </div>
       <div>
-        <h2>{boardName}</h2>
+        <h2>{nameBoard.nameBoard}</h2>
         <div>
           <p>
             {welcome}
             <br /> {user.user}
           </p>
 
-          <img src={user.picture} />
+          <img src={user.picture} alt={user.user} />
         </div>
       </div>
     </HeaderStyle>

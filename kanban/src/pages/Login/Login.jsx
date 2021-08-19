@@ -8,8 +8,6 @@ import {
   loginBtn,
   loginNameOrEmail,
   loginPassword,
-  validMail,
-  validPass,
   welcomeGuest,
 } from "../../utility/constantsText";
 import { numberValidate, validateNameOrEmail } from "../../utility/validation";

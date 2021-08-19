@@ -28,7 +28,7 @@ const Lists = () => {
     }
 
     getAllLists();
-  }, [!showModal]);
+  }, [showModal]);
 
   const handleShowModal = () => {
     setShowModal(!showModal);
