@@ -31,6 +31,5 @@ export async function themes(dispatch, mode) {
 
 export async function logout(dispatch) {
   dispatch({ type: "LOGOUT" });
-  localStorage.removeItem("currentUser");
-  localStorage.removeItem("currentTheme");
+  localStorage.clear();
 }

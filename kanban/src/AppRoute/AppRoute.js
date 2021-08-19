@@ -8,14 +8,14 @@ const AppRoutes = ({ component: Component, path, isPrivate, ...rest }) => {
   return (
     <Route
       path={path}
-      render={(props) =>
-        isPrivate && !userDetails.token ? (
-          <Redirect exact to={{ pathname: "/login" }} />
-        ) : (
-          <Component {...props} />
-        )
-      }
       {...rest}
+      render={(props) => {
+        if (userDetails.token) {
+          return <Component {...props} />;
+        } else {
+          return <Redirect exact to={{ pathname: "/login" }} />;
+        }
+      }}
     />
   );
 };
