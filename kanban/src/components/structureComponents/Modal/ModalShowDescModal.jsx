@@ -13,7 +13,6 @@ import { useAuthState } from "../../../Context";
 
 const ModalShowDescModal = ({
   cardDesc,
-  cardColor,
   setShowDescModal,
   showDescModal,
   cardName,
