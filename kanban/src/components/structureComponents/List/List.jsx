@@ -50,7 +50,15 @@ const List = ({ listName, listId }) => {
   const handleShowTex = () => {
     setShowField(!showField);
   };
+
+  const handleTitleOnBlur = () => {
+    setListTitle(!listTitle);
+    setRefreshCard(!refreshCard);
+    setListName(listName);
+  };
   const handleListTitle = async () => {
+    await handleTitleOnBlur();
+
     await httpRequest({
       method: "put",
       url: `${baseTrelloUrl}lists/${listId}?key=${apiKey}&token=${apiToken}`,
@@ -58,7 +66,10 @@ const List = ({ listName, listId }) => {
         name: newListName,
       },
     });
+
+    setRefreshCard(!refreshCard);
     setListTitle(!listTitle);
+    setListName(newListName);
   };
 
   useEffect(() => {
@@ -71,7 +82,7 @@ const List = ({ listName, listId }) => {
     }
 
     getAllCards();
-  }, [newListName, refreshCard, showField]);
+  }, [newListName, refreshCard, showField, listId]);
 
   const getMapingCards = () => {
     return cards.map((card) => {
@@ -97,8 +108,12 @@ const List = ({ listName, listId }) => {
       <h4 onClick={handleListTitle}>{newListName}</h4>
     ) : (
       <div className="titleChange">
-        <InputField onChange={handleListName} value={newListName} />
-        <Button label={addBtn} onClick={handleListTitle} />
+        <InputField
+          onChange={handleListName}
+          value={newListName}
+          onBlur={handleTitleOnBlur}
+        />
+        <Button label={addBtn} onMouseDown={handleListTitle} />
       </div>
     );
   };

@@ -2,6 +2,7 @@ import React from "react";
 import { ModalDivDescription } from "../../styleComponents/Container/Modal_styleDescription";
 import Button from "../../reusableComponents/Button/Button";
 import {
+  cardColorText,
   cardDescription,
   cardTitle,
   closeBtn,
@@ -28,12 +29,14 @@ const ModalShowDescModal = ({
     <ModalDivDescription>
       <div className="modalContent">
         <div className="descriptionDiv">
-          <div className="divAbout" style={elementP}></div>
+          <div className="divAbout" style={elementP}>
+            <h5>{cardColorText}</h5>
+          </div>
           <div className="divAbout">
             <h5>
               {textBoardName} {textName}
             </h5>
-            <p>{user.user}</p>
+            <p>{user.nameBoard}</p>
           </div>
           <div className="divAbout">
             <h5>

@@ -1,4 +1,3 @@
-import { getByPlaceholderText } from "@testing-library/react";
 import React, { useState } from "react";
 import { clickDesc, deleteX, threeDots } from "../../../utility/constantsText";
 import Button from "../../reusableComponents/Button/Button";

@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  BOARD_NAME,
   LOGIN_ERROR,
   LOGIN_SUCCESS,
   LOGOUT,
@@ -25,7 +26,7 @@ export async function loginUser(dispatch, loginPayload) {
       }
 
       dispatch({ type: LOGIN_ERROR, error: data.errors[0] });
-      return;
+      return null;
     });
   } catch (error) {
     dispatch({ type: LOGIN_ERROR, error: error });
@@ -34,6 +35,9 @@ export async function loginUser(dispatch, loginPayload) {
 export async function themes(dispatch, mode) {
   dispatch({ type: THEMES, payload: mode });
   localStorage.setItem("currentTheme", JSON.stringify(mode));
+}
+export async function getBoardData(dispatch, kanban) {
+  dispatch({ type: BOARD_NAME, payload: kanban });
 }
 
 export async function logout(dispatch) {

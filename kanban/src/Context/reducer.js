@@ -1,4 +1,5 @@
 import {
+  BOARD_NAME,
   LOGIN_ERROR,
   LOGIN_SUCCESS,
   LOGOUT,
@@ -26,6 +27,7 @@ export const initialState = {
   loading: false,
   errorMessage: null,
   themeToggle: themeToggle,
+  nameBoard: "",
 };
 
 export const AuthReducer = (initialState, action) => {
@@ -62,6 +64,11 @@ export const AuthReducer = (initialState, action) => {
       return {
         ...initialState,
         themeToggle: action.payload,
+      };
+    case BOARD_NAME:
+      return {
+        ...initialState,
+        nameBoard: action.payload,
       };
 
     default:

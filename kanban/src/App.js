@@ -7,7 +7,6 @@ import { AuthProvider } from "./Context";
 import routes from "./utility/routes";
 import AppRoute from "./AppRoute/AppRoute";
 import Login from "./pages/Login/Login";
-import Board from "./pages/Board/Board";
 const getRouteMap = () => {
   return routes.map((route) => (
     <AppRoute
