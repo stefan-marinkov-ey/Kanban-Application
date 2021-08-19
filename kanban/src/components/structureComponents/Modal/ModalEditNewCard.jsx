@@ -25,10 +25,12 @@ const ModalEditNewCard = ({
   refreshCard,
   setShowEditModal,
   cardName,
+  cardDesc,
+  cardColor,
 }) => {
-  const [cardEditName, setCardEditName] = useState("");
-  const [cardEditDescription, setCardEditDescription] = useState("");
-  const [cardEditColor, setCardEditColor] = useState("");
+  const [cardEditName, setCardEditName] = useState(cardName);
+  const [cardEditDescription, setCardEditDescription] = useState(cardDesc);
+  const [cardEditColor, setCardEditColor] = useState(cardColor);
 
   const handleChangeName = async (e) => {
     let value = e.target.value;
@@ -43,9 +45,9 @@ const ModalEditNewCard = ({
     setCardEditColor(value);
   };
   const handleCancelEdit = () => {
-    setCardEditName("");
-    setCardEditDescription("");
-    setCardEditColor("");
+    setCardEditName(cardName);
+    setCardEditDescription(cardDesc);
+    setCardEditColor(cardColor);
     setShowEditModal(false);
   };
 
