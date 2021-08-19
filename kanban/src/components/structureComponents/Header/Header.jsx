@@ -35,7 +35,10 @@ const Header = (props) => {
     async function getBoardName() {
       let response = await httpRequest(getBoard);
 
-      getBoardData(dispatch, response.responseData.data.name);
+      getBoardData(dispatch, {
+        name: "nameBoard",
+        value: response.responseData.data.name,
+      });
     }
     getBoardName();
   }, [dispatch]);

@@ -68,7 +68,7 @@ export const AuthReducer = (initialState, action) => {
     case BOARD_NAME:
       return {
         ...initialState,
-        nameBoard: action.payload,
+        [action.payload.name]: action.payload.value,
       };
 
     default:
