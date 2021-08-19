@@ -12,6 +12,7 @@ import {
   addBtn,
   cancelBtn,
   creatingNewList,
+  deleteX,
 } from "../../../utility/constantsText";
 
 const ModalNewList = ({ setShowModal, showModal }) => {
@@ -39,7 +40,14 @@ const ModalNewList = ({ setShowModal, showModal }) => {
         <div className="newListContent">
           <div>
             <div className="middleDiv">
-              <h2>{creatingNewList}</h2>
+              <div className="titleAndCancel">
+                <h5>{creatingNewList}</h5>
+                <Button
+                  className="cancelX"
+                  label={deleteX}
+                  onClick={handleCancelEdit}
+                />
+              </div>
               <InputField onChange={handleChange} value={listName} />
             </div>
             <div className="addEndClose">

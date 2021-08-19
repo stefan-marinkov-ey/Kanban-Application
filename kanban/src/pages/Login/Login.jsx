@@ -12,11 +12,8 @@ import {
   validPass,
   welcomeGuest,
 } from "../../utility/constantsText";
-import {
-  inputLetterValidation,
-  numberValidate,
-  validateNameOrEmail,
-} from "../../utility/validation";
+import { numberValidate, validateNameOrEmail } from "../../utility/validation";
+import { boardRoute } from "../../utility/constantsWithRoutesAndMethods";
 const Login = (props) => {
   const dispatch = useAuthDispatch();
   const { loading, errorMessage } = useAuthState();
@@ -29,7 +26,7 @@ const Login = (props) => {
     try {
       let response = await loginUser(dispatch, getUrl);
       if (!response === undefined) return;
-      props.history.push("/kanban");
+      props.history.push(`${boardRoute}`);
     } catch (error) {
       setError(error.message);
     }

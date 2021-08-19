@@ -12,7 +12,7 @@ export const ModalDivNewList = styled.div`
     position: fixed;
     z-index: 500;
     background-color: white;
-    width: 40%;
+    width: 50%;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 1px black;
     padding: 16px;
@@ -42,11 +42,31 @@ export const ModalDivNewList = styled.div`
         flex-direction: column;
         justify-content: space-between;
         align-items: stretch;
-        padding: 2%;
-        > h2 {
-          color: ${(props) => props.theme.background};
-          @media (max-width: 500px) {
-            font-size: medium;
+        .titleAndCancel {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          > h5 {
+            color: ${(props) => props.theme.background};
+            @media (max-width: 500px) {
+              font-size: medium;
+            }
+          }
+          .cancelX {
+            background: red;
+            background: ${(props) => props.theme.background};
+            width: 20%;
+            height: 1rem;
+            border: none;
+            margin: 0;
+            &:hover {
+              opacity: 1;
+              background: ${(props) => props.theme.background};
+              color: ${(props) => props.theme.color};
+            }
+            @media (max-width: 500px) {
+              font-size: smaller;
+            }
           }
         }
       }

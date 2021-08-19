@@ -49,6 +49,8 @@ const Cards = ({
       <ModalEditNewCard
         cardId={cardId}
         cardName={cardName}
+        cardDesc={cardDesc}
+        cardColor={cardColor}
         setRefreshCard={setRefreshCard}
         refreshCard={refreshCard}
         setShowEditModal={setShowEditModal}

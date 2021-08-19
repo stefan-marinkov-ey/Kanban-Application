@@ -65,6 +65,12 @@ export const threeDots = "...";
 export const clickDesc = "Click for description";
 
 export const validMail = "Enter valid mail";
+export const validUsername = "Enter valid username";
 
 export const validPass =
-  "Password must be 6 characters long and to have least 1 special character";
+  "Password must be number and at least 5 characters long";
+export const required = "Required";
+
+export const notFound = "Page Doesn't Exist";
+
+export const backToLogin = "Back to login";

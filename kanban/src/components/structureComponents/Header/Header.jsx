@@ -5,25 +5,31 @@ import { themes } from "../../../Context/actions";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import { getBoard } from "../../../utility/constantsKeysAndUrl";
 import { HeaderStyle } from "../../styleComponents/Container/Header_style";
-import { logoutBtn, welcome } from "../../../utility/constantsText";
+import {
+  darkMode,
+  lightMode,
+  logoutBtn,
+  welcome,
+} from "../../../utility/constantsText";
+import { loginRoute } from "../../../utility/constantsWithRoutesAndMethods";
 const Header = (props) => {
   const [boardName, setBoardName] = useState("");
 
   const user = useAuthState();
   const theme = useAuthState();
   const [lightText, setLightText] = useState(false);
-  const [themeColor, setThemeColor] = useState("Dark Mode");
+  const [themeColor, setThemeColor] = useState(`${darkMode}`);
   const dispatch = useAuthDispatch();
 
   const changeLabel = () => {
     themes(dispatch, themeColor);
     setLightText(!lightText);
-    setThemeColor(!lightText ? "Light Mode" : "Dark Mode");
+    setThemeColor(!lightText ? `${lightMode}` : `${darkMode}`);
   };
 
   const handleLogout = () => {
     logout(dispatch);
-    props.history.push(`/login`);
+    props.history.push(`${loginRoute}`);
   };
 
   useEffect(() => {
@@ -39,7 +45,9 @@ const Header = (props) => {
       <div className="headerButtons">
         <Button
           className="themeButton"
-          label={theme.themeToggle === "Dark Mode" ? "Light Mode" : "Dark Mode"}
+          label={
+            theme.themeToggle === `${darkMode}` ? `${lightMode}` : `${darkMode}`
+          }
           type="button"
           onClick={changeLabel}
         />

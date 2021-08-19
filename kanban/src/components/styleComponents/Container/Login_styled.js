@@ -16,7 +16,7 @@ export const LoginPage = styled.div`
   color: white;
   form {
     width: 60%;
-    height: calc(100vh - 45%);
+    height: calc(100vh - 40%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,11 +28,13 @@ export const LoginPage = styled.div`
     }
     span {
       margin-bottom: 5%;
+      font-size: smaller;
+      color: red;
     }
     Button {
-      width: 80%;
+      width: 10rem;
       margin: 0;
-      height: 2.5rem;
+      min-height: 2.5rem;
       border-radius: 5px;
       &:hover {
         background: whitesmoke;

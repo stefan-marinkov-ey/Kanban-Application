@@ -1,3 +1,11 @@
+import {
+  LOGIN_ERROR,
+  LOGIN_SUCCESS,
+  LOGOUT,
+  REQUEST_LOGIN,
+  THEMES,
+} from "../utility/constantsWithRoutesAndMethods";
+
 let user = localStorage.getItem("currentUser")
   ? JSON.parse(localStorage.getItem("currentUser")).firstName
   : "";
@@ -22,12 +30,12 @@ export const initialState = {
 
 export const AuthReducer = (initialState, action) => {
   switch (action.type) {
-    case "REQUEST_LOGIN":
+    case REQUEST_LOGIN:
       return {
         ...initialState,
         loading: true,
       };
-    case "LOGIN_SUCCESS":
+    case LOGIN_SUCCESS:
       return {
         ...initialState,
         user: action.payload.firstName,
@@ -35,7 +43,7 @@ export const AuthReducer = (initialState, action) => {
         picture: action.payload.picture,
         loading: false,
       };
-    case "LOGOUT":
+    case LOGOUT:
       return {
         ...initialState,
         user: "",
@@ -44,13 +52,13 @@ export const AuthReducer = (initialState, action) => {
         themeToggle: "",
       };
 
-    case "LOGIN_ERROR":
+    case LOGIN_ERROR:
       return {
         ...initialState,
         loading: false,
         errorMessage: action.error,
       };
-    case "THEMES":
+    case THEMES:
       return {
         ...initialState,
         themeToggle: action.payload,
