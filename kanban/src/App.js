@@ -1,12 +1,13 @@
 import React from "react";
 
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import "./App.scss";
 import { AuthProvider } from "./Context";
 import routes from "./utility/routes";
 import AppRoute from "./AppRoute/AppRoute";
-
+import Login from "./pages/Login/Login";
+import Board from "./pages/Board/Board";
 const getRouteMap = () => {
   return routes.map((route) => (
     <AppRoute
@@ -17,12 +18,16 @@ const getRouteMap = () => {
     />
   ));
 };
+
 function App() {
   return (
     <AuthProvider>
       <div className="App">
         <Router>
-          <Switch>{getRouteMap()}</Switch>
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            {getRouteMap()}
+          </Switch>
         </Router>
       </div>
     </AuthProvider>

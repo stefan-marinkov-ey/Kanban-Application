@@ -35,8 +35,8 @@ export const CardDivStyled = styled.div`
         &:hover {
           opacity: 0.9;
           cursor: pointer;
-          background: steelblue;
-          color: whitesmoke;
+          background: ${(props) => props.theme.background};
+          color: ${(props) => props.theme.color};
           transition: all 0.5s ease-in-out;
           span {
             opacity: 1;
@@ -56,7 +56,7 @@ export const CardDivStyled = styled.div`
       &:hover {
         opacity: 1;
         background: ${(props) => props.theme.background};
-        color: ${(props) => props.theme.background};
+        color: ${(props) => props.theme.color};
       }
       @media (max-width: 500px) {
         font-size: smaller;
