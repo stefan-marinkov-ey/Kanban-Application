@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "../../components/reusableComponents/Button";
 import InputField from "../../components/reusableComponents/Input/InputField";
-import { loginUser, useAuthState, useAuthDispatch } from "../../Context";
+import { loginUser } from "../../Context";
 import { getUrl } from "../../utility/constantsKeysAndUrl";
 import { LoginPage } from "../../components/styleComponents/Container/Login_styled";
 import {
@@ -12,9 +12,11 @@ import {
 } from "../../utility/constantsText";
 import { numberValidate, validateNameOrEmail } from "../../utility/validation";
 import { boardRoute } from "../../utility/constantsWithRoutesAndMethods";
+import { useManageContext } from "../../Context/context";
 const Login = (props) => {
-  const dispatch = useAuthDispatch();
-  const { loading, errorMessage } = useAuthState();
+  const { state, dispatch } = useManageContext();
+
+  const { loading, errorMessage } = state;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

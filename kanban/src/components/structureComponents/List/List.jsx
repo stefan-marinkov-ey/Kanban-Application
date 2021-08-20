@@ -75,7 +75,7 @@ const List = ({ listName, listId }) => {
   useEffect(() => {
     async function getAllCards() {
       let response = await httpRequest({
-        method: `get`,
+        method: "get",
         url: `${baseTrelloUrl}lists/${listId}/cards?key=${apiKey}&token=${apiToken}`,
       });
       setCards(response.responseData.data);

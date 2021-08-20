@@ -1,5 +1,4 @@
 import React from "react";
-import { useAuthState } from "../../Context";
 import Header from "../../components/structureComponents/Header/Header";
 import Lists from "../../components/structureComponents/Lists/Lists";
 import { ThemeProvider } from "styled-components";
@@ -10,14 +9,15 @@ import {
 } from "../../components/styleComponents/Theme/Themes";
 import { BoardDiv } from "../../components/styleComponents/Container/Board_style";
 import { darkMode, lightMode } from "../../utility/constantsText";
+import { useManageContext } from "../../Context/context";
 
 const Board = (props) => {
-  const theme = useAuthState();
+  const { state } = useManageContext();
 
   const themeTogleClass =
-    theme.themeToggle === `${lightMode}`
+    state.themeToggle === `${lightMode}`
       ? lightTheme
-      : theme.themeToggle === `${darkMode}`
+      : state.themeToggle === `${darkMode}`
       ? darkTheme
       : lightTheme;
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Button from "../../reusableComponents/Button";
-import { logout, useAuthDispatch, useAuthState } from "../../../Context";
 import { getBoardData, themes } from "../../../Context/actions";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import { getBoard } from "../../../utility/constantsKeysAndUrl";
@@ -12,13 +11,12 @@ import {
   welcome,
 } from "../../../utility/constantsText";
 import { loginRoute } from "../../../utility/constantsWithRoutesAndMethods";
+import { useManageContext } from "../../../Context/context";
 const Header = (props) => {
-  const user = useAuthState();
-  const theme = useAuthState();
-  const nameBoard = useAuthState();
+  const { state, dispatch } = useManageContext();
+  const { logout, user, picture, nameBoard } = state;
   const [lightText, setLightText] = useState(false);
   const [themeColor, setThemeColor] = useState(`${darkMode}`);
-  const dispatch = useAuthDispatch();
 
   const changeLabel = () => {
     themes(dispatch, themeColor);
@@ -49,7 +47,9 @@ const Header = (props) => {
         <Button
           className="themeButton"
           label={
-            theme.themeToggle === `${darkMode}` ? `${lightMode}` : `${darkMode}`
+            state.user.themeToggle === `${darkMode}`
+              ? `${lightMode}`
+              : `${darkMode}`
           }
           type="button"
           onClick={changeLabel}
@@ -61,14 +61,14 @@ const Header = (props) => {
         />
       </div>
       <div>
-        <h2>{nameBoard.nameBoard}</h2>
+        <h2>{nameBoard}</h2>
         <div>
           <p>
             {welcome}
-            <br /> {user.user}
+            <br /> {user}
           </p>
 
-          <img src={user.picture} alt={user.user} />
+          <img src={picture} alt={state.user.user} />
         </div>
       </div>
     </HeaderStyle>
