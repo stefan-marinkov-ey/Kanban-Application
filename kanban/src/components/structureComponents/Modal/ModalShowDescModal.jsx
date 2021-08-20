@@ -10,7 +10,7 @@ import {
   textBoardName,
   textName,
 } from "../../../utility/constantsText";
-import { useAuthState } from "../../../Context";
+import ManageContext, { useManageContext } from "../../../Context/context";
 
 const ModalShowDescModal = ({
   cardDesc,
@@ -20,7 +20,8 @@ const ModalShowDescModal = ({
   listName,
   elementP,
 }) => {
-  const user = useAuthState();
+  const { state } = useManageContext();
+  const { nameBoard } = state;
   const handleShowDesc = () => {
     setShowDescModal(!showDescModal);
   };
@@ -36,7 +37,7 @@ const ModalShowDescModal = ({
             <h5>
               {textBoardName} {textName}
             </h5>
-            <p>{user.nameBoard}</p>
+            <p>{nameBoard}</p>
           </div>
           <div className="divAbout">
             <h5>

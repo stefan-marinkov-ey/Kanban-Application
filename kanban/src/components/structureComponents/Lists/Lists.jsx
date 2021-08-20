@@ -55,7 +55,7 @@ const Lists = () => {
           class="seeAll"
           label={seeAll ? showLess : seeAllCards}
           onClick={handleSeeAll}
-        ></Button>
+        />
       </div>
       <div>{getListsAll()}</div>
       {showModalHolder()}
