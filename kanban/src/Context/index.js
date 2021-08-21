@@ -1,4 +1,4 @@
-import { loginUser, logout } from "./actions";
+import { loginUser, logoutAction } from "./actions";
 import { useManageContext } from "./context";
 
-export { useManageContext, loginUser, logout };
+export { useManageContext, loginUser, logoutAction };
