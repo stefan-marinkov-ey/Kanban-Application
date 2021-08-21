@@ -8,41 +8,14 @@ import {
 import Cards from "../Cards/Cards";
 import Button from "../../reusableComponents/Button";
 import { ListCardsDiv } from "../../styleComponents/Container/ListCards_style";
-import {
-  addBtn,
-  cancelBtn,
-  cardTitle,
-  newCardPlaceholder,
-} from "../../../utility/constantsText";
+
 import ListTitle from "./ListTitle";
+import SetNewCard from "./SetNewCard";
 
 const List = ({ listName, listId }) => {
   const [refreshCard, setRefreshCard] = useState(false);
-  const [newCardName, setNewCardName] = useState("");
-  const [showField, setShowField] = useState(false);
+
   const [cards, setCards] = useState([]);
-
-  const handleNewCardName = (e) => {
-    const { value } = e.target.value;
-    setNewCardName(value);
-  };
-
-  const handleCancel = () => {
-    setNewCardName("");
-    setShowField(!showField);
-  };
-
-  const handleShowTex = () => {
-    setShowField(!showField);
-  };
-
-  const handleAddCart = async () => {
-    await httpRequest({
-      method: "post",
-      url: `${baseTrelloUrl}/cards?key=${apiKey}&token=${apiToken}&idList=${listId}&name=${newCardName}`,
-    });
-    setShowField(!showField);
-  };
 
   useEffect(() => {
     async function getAllCards() {
@@ -53,7 +26,7 @@ const List = ({ listName, listId }) => {
       setCards(response.responseData.data);
     }
     getAllCards();
-  }, [refreshCard, showField, listId]);
+  }, [refreshCard, listId]);
 
   const getMapingCards = () => {
     return cards.map((card) => {
@@ -73,25 +46,6 @@ const List = ({ listName, listId }) => {
       );
     });
   };
-  const getAddBtn = () =>
-    newCardName && <Button label={addBtn} onClick={handleAddCart} />;
-
-  const getShowTextarea = () => {
-    return showField ? (
-      <div className="cardField">
-        <textarea
-          placeholder={newCardPlaceholder}
-          onChange={handleNewCardName}
-        ></textarea>
-        <div>
-          {getAddBtn()}
-          <Button label={cancelBtn} onClick={handleCancel} />
-        </div>
-      </div>
-    ) : (
-      <Button label={`${addBtn}${cardTitle}`} onClick={handleShowTex}></Button>
-    );
-  };
 
   return (
     <ListCardsDiv>
@@ -102,7 +56,11 @@ const List = ({ listName, listId }) => {
         setRefreshCard={setRefreshCard}
       />
       {getMapingCards()}
-      {getShowTextarea()}
+      <SetNewCard
+        listId={listId}
+        refreshCard={refreshCard}
+        setRefreshCard={setRefreshCard}
+      />
     </ListCardsDiv>
   );
 };
