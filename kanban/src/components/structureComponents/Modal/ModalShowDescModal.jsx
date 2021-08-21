@@ -10,7 +10,7 @@ import {
   textBoardName,
   textName,
 } from "../../../utility/constantsText";
-import ManageContext, { useManageContext } from "../../../Context/context";
+import { useManageContext } from "../../../Context/context";
 
 const ModalShowDescModal = ({
   cardDesc,

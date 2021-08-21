@@ -14,32 +14,17 @@ import {
   cardTitle,
   newCardPlaceholder,
 } from "../../../utility/constantsText";
-import InputField from "../../reusableComponents/Input/InputField";
+import ListTitle from "./ListTitle";
 
 const List = ({ listName, listId }) => {
   const [refreshCard, setRefreshCard] = useState(false);
-  const [listTitle, setListTitle] = useState(false);
   const [newCardName, setNewCardName] = useState("");
   const [showField, setShowField] = useState(false);
   const [cards, setCards] = useState([]);
-  const [newListName, setListName] = useState(listName || "");
-
-  const handleListName = async (e) => {
-    let value = e.target.value;
-    setListName(value);
-  };
 
   const handleNewCardName = (e) => {
-    let value = e.target.value;
+    const { value } = e.target.value;
     setNewCardName(value);
-  };
-  const handleAddCart = async () => {
-    await httpRequest({
-      method: "post",
-      url: `${baseTrelloUrl}/cards?key=${apiKey}&token=${apiToken}&idList=${listId}&name=${newCardName}`,
-    });
-
-    setShowField(!showField);
   };
 
   const handleCancel = () => {
@@ -51,25 +36,12 @@ const List = ({ listName, listId }) => {
     setShowField(!showField);
   };
 
-  const handleTitleOnBlur = () => {
-    setListTitle(!listTitle);
-    setRefreshCard(!refreshCard);
-    setListName(listName);
-  };
-  const handleListTitle = async () => {
-    await handleTitleOnBlur();
-
+  const handleAddCart = async () => {
     await httpRequest({
-      method: "put",
-      url: `${baseTrelloUrl}lists/${listId}?key=${apiKey}&token=${apiToken}`,
-      data: {
-        name: newListName,
-      },
+      method: "post",
+      url: `${baseTrelloUrl}/cards?key=${apiKey}&token=${apiToken}&idList=${listId}&name=${newCardName}`,
     });
-
-    setRefreshCard(!refreshCard);
-    setListTitle(!listTitle);
-    setListName(newListName);
+    setShowField(!showField);
   };
 
   useEffect(() => {
@@ -80,9 +52,8 @@ const List = ({ listName, listId }) => {
       });
       setCards(response.responseData.data);
     }
-
     getAllCards();
-  }, [newListName, refreshCard, showField, listId]);
+  }, [refreshCard, showField, listId]);
 
   const getMapingCards = () => {
     return cards.map((card) => {
@@ -102,22 +73,6 @@ const List = ({ listName, listId }) => {
       );
     });
   };
-
-  const getListTitle = () => {
-    return !listTitle ? (
-      <h4 onClick={handleListTitle}>{newListName}</h4>
-    ) : (
-      <div className="titleChange">
-        <InputField
-          onChange={handleListName}
-          value={newListName}
-          onBlur={handleTitleOnBlur}
-        />
-        <Button label={addBtn} onMouseDown={handleListTitle} />
-      </div>
-    );
-  };
-
   const getAddBtn = () =>
     newCardName && <Button label={addBtn} onClick={handleAddCart} />;
 
@@ -140,7 +95,12 @@ const List = ({ listName, listId }) => {
 
   return (
     <ListCardsDiv>
-      <div>{getListTitle()}</div>
+      <ListTitle
+        listId={listId}
+        listName={listName}
+        refreshCard={refreshCard}
+        setRefreshCard={setRefreshCard}
+      />
       {getMapingCards()}
       {getShowTextarea()}
     </ListCardsDiv>

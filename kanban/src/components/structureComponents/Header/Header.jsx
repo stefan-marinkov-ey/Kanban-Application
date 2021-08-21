@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Button from "../../reusableComponents/Button";
-import { getBoardData, themes } from "../../../Context/actions";
+import { getBoardData, logoutAction, themes } from "../../../Context/actions";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import { getBoard } from "../../../utility/constantsKeysAndUrl";
 import { HeaderStyle } from "../../styleComponents/Container/Header_style";
-import {
-  darkMode,
-  lightMode,
-  logoutBtn,
-  welcome,
-} from "../../../utility/constantsText";
+import { darkMode, lightMode, logoutBtn } from "../../../utility/constantsText";
 import { loginRoute } from "../../../utility/constantsWithRoutesAndMethods";
 import { useManageContext } from "../../../Context/context";
+import UserInfo from "../UserInfo";
 const Header = (props) => {
   const { state, dispatch } = useManageContext();
-  const { logout, user, picture, nameBoard } = state;
+  const { user, picture, nameBoard } = state;
   const [lightText, setLightText] = useState(false);
   const [themeColor, setThemeColor] = useState(`${darkMode}`);
 
@@ -25,7 +21,7 @@ const Header = (props) => {
   };
 
   const handleLogout = () => {
-    logout(dispatch);
+    logoutAction(dispatch);
     props.history.push(`${loginRoute}`);
   };
 
@@ -60,17 +56,7 @@ const Header = (props) => {
           onClick={handleLogout}
         />
       </div>
-      <div>
-        <h2>{nameBoard}</h2>
-        <div>
-          <p>
-            {welcome}
-            <br /> {user}
-          </p>
-
-          <img src={picture} alt={state.user.user} />
-        </div>
-      </div>
+      <UserInfo user={user} picture={picture} nameBoard={nameBoard} />
     </HeaderStyle>
   );
 };

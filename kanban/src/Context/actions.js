@@ -40,7 +40,7 @@ export async function getBoardData(dispatch, kanban) {
   dispatch({ type: BOARD_NAME, payload: kanban });
 }
 
-export async function logout(dispatch) {
+export async function logoutAction(dispatch) {
   dispatch({ type: LOGOUT });
   localStorage.clear();
 }
