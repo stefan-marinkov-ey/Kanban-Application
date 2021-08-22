@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import {
   apiKey,
@@ -15,33 +15,40 @@ const List = ({ listName, listId }) => {
   const [refreshCard, setRefreshCard] = useState(false);
   const [cards, setCards] = useState([]);
 
-  useEffect(() => {
-    async function getAllCards() {
-      let response = await httpRequest({
-        method: "get",
-        url: `${baseTrelloUrl}lists/${listId}/cards?key=${apiKey}&token=${apiToken}`,
-      });
-      setCards(response.responseData.data);
-    }
-    getAllCards();
-  }, [refreshCard, listId]);
+  const getAllCards = useCallback(async () => {
+    let response = await httpRequest({
+      method: "get",
+      url: `${baseTrelloUrl}lists/${listId}/cards?key=${apiKey}&token=${apiToken}`,
+    });
+    setRefreshCard(!refreshCard);
+    if (response.responseData.data) setCards(response.responseData.data);
+  }, [listId, refreshCard]);
 
-  const getMapingCards = cards.map((card) => {
-    return (
-      <div key={card.id}>
-        <Cards
-          key={card.id}
-          cardName={card.name}
-          cardId={card.id}
-          cardColor={card.cover.color}
-          cardDesc={card.desc}
-          setRefreshCard={setRefreshCard}
-          refreshCard={refreshCard}
-          listName={listName}
-        />
-      </div>
-    );
-  });
+  useEffect(() => {
+    if (!refreshCard) getAllCards();
+  }, [getAllCards, refreshCard]);
+
+  const getMapingCards = useMemo(
+    () =>
+      cards &&
+      cards.map((card) => {
+        return (
+          <div key={card.id}>
+            <Cards
+              key={card.id}
+              cardName={card.name}
+              cardId={card.id}
+              cardColor={card.cover.color}
+              cardDesc={card.desc}
+              setRefreshCard={setRefreshCard}
+              refreshCard={refreshCard}
+              listName={listName}
+            />
+          </div>
+        );
+      }),
+    [cards, listName, refreshCard]
+  );
 
   return (
     <ListCardsDiv>
