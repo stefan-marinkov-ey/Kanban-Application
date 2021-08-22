@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import { getLists } from "../../../utility/constantsKeysAndUrl";
 import List from "../List/List";
-import ModalNewList from "../Modal/ModalNewList";
 import Button from "../../reusableComponents/Button";
 import { ListsDiv } from "../../styleComponents/Container/Lists_style";
 import {
@@ -11,10 +10,13 @@ import {
   seeAllCards,
   showLess,
 } from "../../../utility/constantsText";
+import Modal from "../Modal/Modal";
+import useModal from "../Modal/useModal";
+import NewList from "../NewList";
 
 const Lists = () => {
+  const { isShowing, toggle } = useModal();
   const [lists, setLists] = useState([]);
-  const [showModal, setShowModal] = useState(false);
   const [seeAll, setSeeAll] = useState(false);
 
   const handleSeeAll = () => {
@@ -28,11 +30,7 @@ const Lists = () => {
     }
 
     getAllLists();
-  }, [showModal]);
-
-  const handleShowModal = () => {
-    setShowModal(!showModal);
-  };
+  }, [toggle]);
 
   const getListsAll = () => {
     return lists
@@ -42,11 +40,6 @@ const Lists = () => {
       });
   };
 
-  const showModalHolder = () => {
-    return showModal ? (
-      <ModalNewList setShowModal={setShowModal} showModal={showModal} />
-    ) : null;
-  };
   return (
     <ListsDiv>
       <div className="listsContent">
@@ -58,12 +51,10 @@ const Lists = () => {
         />
       </div>
       <div>{getListsAll()}</div>
-      {showModalHolder()}
-      <Button
-        className="newListBtn"
-        label={creatingNewList}
-        onClick={handleShowModal}
-      />
+      <Button className="newListBtn" label={creatingNewList} onClick={toggle} />
+      <Modal isShowing={isShowing} hide={toggle}>
+        <NewList toggle={toggle} />
+      </Modal>
     </ListsDiv>
   );
 };

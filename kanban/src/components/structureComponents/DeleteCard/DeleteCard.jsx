@@ -13,7 +13,13 @@ import {
   deletingCardName,
 } from "../../../utility/constantsText";
 
-const DeleteCard = ({ cardName, cardId, refreshCard, setRefreshCard }) => {
+const DeleteCard = ({
+  cardName,
+  cardId,
+  refreshCard,
+  setRefreshCard,
+  toggle,
+}) => {
   const handleDelete = async () => {
     await httpRequest({
       method: `delete`,
@@ -21,7 +27,6 @@ const DeleteCard = ({ cardName, cardId, refreshCard, setRefreshCard }) => {
     });
     setRefreshCard(!refreshCard);
   };
-  const handleCancel = () => {};
 
   return (
     <div className="DeleteContent">
@@ -35,7 +40,7 @@ const DeleteCard = ({ cardName, cardId, refreshCard, setRefreshCard }) => {
 
       <div className="buttonHolderDelete">
         <Button label={deleteBtn} onClick={handleDelete} />
-        <Button label={cancelBtn} onClick={handleCancel} />
+        <Button label={cancelBtn} onClick={() => toggle()} />
       </div>
     </div>
   );

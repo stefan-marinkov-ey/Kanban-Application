@@ -7,7 +7,7 @@ import {
   baseTrelloUrl,
 } from "../../../utility/constantsKeysAndUrl";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
-import { ModalDivEdit } from "../../styleComponents/Container/Modal_styleEdit";
+
 import {
   addBtn,
   cancelBtn,
@@ -19,14 +19,14 @@ import {
   nameForCard,
 } from "../../../utility/constantsText";
 
-const ModalEditNewCard = ({
+const EditCard = ({
   cardId,
   setRefreshCard,
   refreshCard,
-  setShowEditModal,
   cardName,
   cardDesc,
   cardColor,
+  toggle,
 }) => {
   const [cardEditName, setCardEditName] = useState(cardName || "");
   const [cardEditDescription, setCardEditDescription] = useState(
@@ -50,7 +50,7 @@ const ModalEditNewCard = ({
     setCardEditName(cardName);
     setCardEditDescription(cardDesc);
     setCardEditColor(cardColor);
-    setShowEditModal(false);
+    toggle();
   };
 
   const handleEditCardFields = async () => {
@@ -66,45 +66,43 @@ const ModalEditNewCard = ({
         },
       },
     });
-    setShowEditModal(false);
     setRefreshCard(!refreshCard);
+    toggle();
   };
 
   return (
-    <ModalDivEdit>
-      <div className="modalContent">
-        <div className="EditContent">
-          <div className="editDiv">
-            <h2>
-              {editCard} {cardName} {editCardName}
-            </h2>
-          </div>
-          <div className="editDiv">
-            <InputField
-              label={nameForCard}
-              onChange={handleChangeName}
-              value={cardEditName}
-            />
-            <InputField
-              label={cardDescription}
-              onChange={handleChangeDescription}
-              value={cardEditDescription}
-            />
-            <InputField
-              className={editInput}
-              label={cardColorText}
-              onChange={handleChangeColor}
-              value={cardEditColor}
-            />
-          </div>
-          <div className="editDiv holderBtns">
-            <Button label={addBtn} onClick={handleEditCardFields} />
-            <Button label={cancelBtn} onClick={handleCancelEdit} />
-          </div>
+    <div className="modalContent">
+      <div className="EditContent">
+        <div className="editDiv">
+          <h2>
+            {editCard} {cardName} {editCardName}
+          </h2>
+        </div>
+        <div className="editDiv">
+          <InputField
+            label={nameForCard}
+            onChange={handleChangeName}
+            value={cardEditName}
+          />
+          <InputField
+            label={cardDescription}
+            onChange={handleChangeDescription}
+            value={cardEditDescription}
+          />
+          <InputField
+            className={editInput}
+            label={cardColorText}
+            onChange={handleChangeColor}
+            value={cardEditColor}
+          />
+        </div>
+        <div className="editDiv holderBtns">
+          <Button label={addBtn} onClick={handleEditCardFields} />
+          <Button label={cancelBtn} onClick={handleCancelEdit} />
         </div>
       </div>
-    </ModalDivEdit>
+    </div>
   );
 };
 
-export default ModalEditNewCard;
+export default EditCard;
