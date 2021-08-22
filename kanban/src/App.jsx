@@ -5,8 +5,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import routes from "./utility/routes";
 import AppRoute from "./AppRoute/AppRoute";
 import Login from "./pages/Login/Login";
-import { StyledApp } from "./components/styleComponents/Container/App_style";
 import ManageContext from "./Context/context";
+
 const getRouteMap = () => {
   return routes.map((route) => (
     <AppRoute
@@ -21,14 +21,14 @@ const getRouteMap = () => {
 function App() {
   return (
     <ManageContext>
-      <StyledApp>
+      <div>
         <Router>
           <Switch>
             <Route exact path="/login" component={Login} />
             {getRouteMap()}
           </Switch>
         </Router>
-      </StyledApp>
+      </div>
     </ManageContext>
   );
 }

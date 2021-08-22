@@ -2,7 +2,7 @@ import React from "react";
 import { deleteX } from "../../../utility/constantsText";
 import Button from "../../reusableComponents/Button/Button";
 import { CardDivStyled } from "../../styleComponents/Container/CardStyle";
-import CardHolder from "./CardHolder";
+import CardHolder from "../CardHolder/CardHolder";
 
 const Cards = ({ cardName, cardColor }) => {
   return (
