@@ -13,6 +13,7 @@ import {
 import { numberValidate, validateNameOrEmail } from "../../utility/validation";
 import { boardRoute } from "../../utility/constantsWithRoutesAndMethods";
 import { useManageContext } from "../../Context/context";
+import { getBoardData } from "../../Context/actions";
 const Login = (props) => {
   const { state, dispatch } = useManageContext();
 
@@ -20,7 +21,6 @@ const Login = (props) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
   const handleLogin = async () => {
     try {
@@ -28,7 +28,7 @@ const Login = (props) => {
       if (!response === undefined) return;
       props.history.push(`${boardRoute}`);
     } catch (error) {
-      setError(error.message);
+      getBoardData(dispatch, "Something goes wrong");
     }
   };
 
@@ -41,13 +41,9 @@ const Login = (props) => {
     setPassword(e.target.value);
   };
 
-  const getErrorMessage = () => {
-    return errorMessage ? <p>{errorMessage}</p> : error ? <p>{error}</p> : null;
-  };
-
   return (
     <LoginPage>
-      {getErrorMessage()}
+      {errorMessage}
       <form>
         <h1>{welcomeGuest}</h1>
         <InputField

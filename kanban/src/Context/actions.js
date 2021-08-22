@@ -4,6 +4,7 @@ import {
   LOGIN_ERROR,
   LOGIN_SUCCESS,
   LOGOUT,
+  REFRESH,
   REQUEST_LOGIN,
   THEMES,
 } from "../utility/constantsWithRoutesAndMethods";
@@ -38,6 +39,9 @@ export async function themes(dispatch, mode) {
 }
 export async function getBoardData(dispatch, kanban) {
   dispatch({ type: BOARD_NAME, payload: kanban });
+}
+export async function refreshEffect(dispatch, refreshList) {
+  dispatch({ type: REFRESH, payload: refreshList });
 }
 
 export async function logoutAction(dispatch) {

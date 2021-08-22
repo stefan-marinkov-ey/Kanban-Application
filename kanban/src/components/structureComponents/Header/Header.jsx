@@ -26,12 +26,18 @@ const Header = (props) => {
   };
 
   const getBoardName = useCallback(async () => {
-    let response = await httpRequest(getBoard);
-
-    getBoardData(dispatch, {
-      name: "nameBoard",
-      value: response.responseData.data.name,
-    });
+    try {
+      let response = await httpRequest(getBoard);
+      getBoardData(dispatch, {
+        name: "nameBoard",
+        value: response.responseData.data.name,
+      });
+    } catch (e) {
+      getBoardData(dispatch, {
+        name: "errorMessage",
+        value: "Something goes wrong",
+      });
+    }
   }, [dispatch]);
 
   useEffect(() => {

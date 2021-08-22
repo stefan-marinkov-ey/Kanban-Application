@@ -5,6 +5,7 @@ import {
   LOGOUT,
   REQUEST_LOGIN,
   THEMES,
+  REFRESH,
 } from "../utility/constantsWithRoutesAndMethods";
 
 let user = localStorage.getItem("currentUser")
@@ -28,6 +29,7 @@ export const initialState = {
   errorMessage: null,
   themeToggle: themeToggle,
   nameBoard: "",
+  refresh: false,
 };
 
 export const AuthReducer = (initialState, action) => {
@@ -69,6 +71,11 @@ export const AuthReducer = (initialState, action) => {
       return {
         ...initialState,
         [action.payload.name]: action.payload.value,
+      };
+    case REFRESH:
+      return {
+        ...initialState,
+        refresh: action.payload,
       };
 
     default:

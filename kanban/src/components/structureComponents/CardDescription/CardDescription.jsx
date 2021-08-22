@@ -30,21 +30,15 @@ const CardDescription = ({
           <h5>{cardColorText}</h5>
         </div>
         <div className="divAbout">
-          <h5>
-            {textBoardName} {textName}
-          </h5>
+          <h5>{`${textBoardName} ${textName}`}</h5>
           <p>{nameBoard}</p>
         </div>
         <div className="divAbout">
-          <h5>
-            {listTitle} {textName}
-          </h5>
+          <h5>{`${listTitle} ${textName}`}</h5>
           <p>{listName}</p>
         </div>
         <div className="divAbout">
-          <h5>
-            {cardTitle} {textName}
-          </h5>
+          <h5>{`${cardTitle} ${textName}`}</h5>
           <p>{cardName}</p>
         </div>
         <div className="divAbout">

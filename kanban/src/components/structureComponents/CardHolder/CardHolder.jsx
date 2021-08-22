@@ -1,19 +1,12 @@
 import React from "react";
-import { threeDots } from "../../../utility/constantsText";
+import { clickDesc, threeDots } from "../../../utility/constantsText";
 import { makeLighterColor } from "../../../utility/utilityFunc";
 import Modal from "../Modal/Modal";
 import EditCard from "../EditCard/EditCard";
 import useModal from "../Modal/useModal.js";
 import CardDescription from "../CardDescription/CardDescription";
 
-const CardHolder = ({
-  cardName,
-  cardColor,
-  cardDesc,
-  cardId,
-  refreshCard,
-  setRefreshCard,
-}) => {
+const CardHolder = ({ cardName, cardColor, cardDesc, cardId }) => {
   const { isShowing, toggle } = useModal();
   const { isShowing: Desc, toggle: toggleDesc } = useModal();
   const elementP = makeLighterColor(cardColor);
@@ -24,7 +17,7 @@ const CardHolder = ({
         {cardName} <span>{threeDots}</span>
       </p>
       <p onClick={toggleDesc} style={elementP}>
-        Click for description
+        {clickDesc}
       </p>
       <Modal isShowing={Desc} hide={toggleDesc}>
         <CardDescription
@@ -41,8 +34,6 @@ const CardHolder = ({
           cardDesc={cardDesc}
           cardColor={cardColor}
           cardName={cardName}
-          refreshCard={refreshCard}
-          setRefreshCard={setRefreshCard}
           toggle={toggle}
         />
       </Modal>

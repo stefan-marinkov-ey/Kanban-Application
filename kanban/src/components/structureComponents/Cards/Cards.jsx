@@ -7,14 +7,7 @@ import useModal from "../Modal/useModal.js";
 import Modal from "../Modal/Modal";
 import DeleteCard from "../DeleteCard/DeleteCard";
 
-const Cards = ({
-  cardName,
-  cardColor,
-  cardId,
-  refreshCard,
-  setRefreshCard,
-  cardDesc,
-}) => {
+const Cards = ({ cardName, cardColor, cardId, cardDesc }) => {
   const { isShowing, toggle } = useModal();
   return (
     <CardDivStyled>
@@ -24,19 +17,11 @@ const Cards = ({
           cardColor={cardColor}
           cardId={cardId}
           cardDesc={cardDesc}
-          refreshCard={refreshCard}
-          setRefreshCard={setRefreshCard}
         />
         <Button label={deleteX} onClick={toggle} />
 
         <Modal isShowing={isShowing} hide={toggle}>
-          <DeleteCard
-            cardName={cardName}
-            cardId={cardId}
-            refreshCard={refreshCard}
-            setRefreshCard={setRefreshCard}
-            toggle={toggle}
-          />
+          <DeleteCard cardName={cardName} cardId={cardId} toggle={toggle} />
         </Modal>
       </div>
     </CardDivStyled>

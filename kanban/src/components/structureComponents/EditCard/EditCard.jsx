@@ -18,16 +18,12 @@ import {
   editInput,
   nameForCard,
 } from "../../../utility/constantsText";
+import { getBoardData, refreshEffect } from "../../../Context/actions";
+import { useManageContext } from "../../../Context";
 
-const EditCard = ({
-  cardId,
-  setRefreshCard,
-  refreshCard,
-  cardName,
-  cardDesc,
-  cardColor,
-  toggle,
-}) => {
+const EditCard = ({ cardId, cardName, cardDesc, cardColor, toggle }) => {
+  const { state, dispatch } = useManageContext();
+  const { refresh } = state;
   const [cardEditName, setCardEditName] = useState(cardName || "");
   const [cardEditDescription, setCardEditDescription] = useState(
     cardDesc || ""
@@ -54,19 +50,27 @@ const EditCard = ({
   };
 
   const handleEditCardFields = async () => {
-    await httpRequest({
-      method: `put`,
-      url: `${baseTrelloUrl}cards/${cardId}?key=${apiKey}&token=${apiToken}`,
-      data: {
-        name: cardEditName,
-        desc: cardEditDescription,
-        cover: {
-          color: cardEditColor,
-          brightness: "light",
+    try {
+      await httpRequest({
+        method: `put`,
+        url: `${baseTrelloUrl}cards/${cardId}?key=${apiKey}&token=${apiToken}`,
+        data: {
+          name: cardEditName,
+          desc: cardEditDescription,
+          cover: {
+            color: cardEditColor,
+            brightness: "light",
+          },
         },
-      },
-    });
-    setRefreshCard(!refreshCard);
+      });
+    } catch (e) {
+      getBoardData(dispatch, {
+        name: "errorMessage",
+        value: "Something goes wrong",
+      });
+    }
+
+    refreshEffect(dispatch, !refresh);
     toggle();
   };
 

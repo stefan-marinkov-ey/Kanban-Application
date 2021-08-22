@@ -10,23 +10,33 @@ import { ListCardsDiv } from "../../styleComponents/Container/ListCards_style";
 
 import ListTitle from "../ListTitle/ListTitle";
 import SetNewCard from "../SetNewCard/SetNewCard";
+import { getBoardData, refreshEffect } from "../../../Context/actions";
+import { useManageContext } from "../../../Context";
 
 const List = ({ listName, listId }) => {
-  const [refreshCard, setRefreshCard] = useState(false);
+  const { state, dispatch } = useManageContext();
+  const { refresh } = state;
   const [cards, setCards] = useState([]);
 
   const getAllCards = useCallback(async () => {
-    let response = await httpRequest({
-      method: "get",
-      url: `${baseTrelloUrl}lists/${listId}/cards?key=${apiKey}&token=${apiToken}`,
-    });
-    setRefreshCard(!refreshCard);
-    if (response.responseData.data) setCards(response.responseData.data);
-  }, [listId, refreshCard]);
+    try {
+      let response = await httpRequest({
+        method: "get",
+        url: `${baseTrelloUrl}lists/${listId}/cards?key=${apiKey}&token=${apiToken}`,
+      });
+      refreshEffect(dispatch, !refresh);
+      if (response.responseData.data) setCards(response.responseData.data);
+    } catch (e) {
+      getBoardData(dispatch, {
+        name: "errorMessage",
+        value: "Something goes wrong",
+      });
+    }
+  }, [listId, refresh, dispatch]);
 
   useEffect(() => {
-    if (!refreshCard) getAllCards();
-  }, [getAllCards, refreshCard]);
+    if (!refresh) getAllCards();
+  }, [getAllCards, refresh]);
 
   const getMapingCards = useMemo(
     () =>
@@ -40,30 +50,19 @@ const List = ({ listName, listId }) => {
               cardId={card.id}
               cardColor={card.cover.color}
               cardDesc={card.desc}
-              setRefreshCard={setRefreshCard}
-              refreshCard={refreshCard}
               listName={listName}
             />
           </div>
         );
       }),
-    [cards, listName, refreshCard]
+    [cards, listName]
   );
 
   return (
     <ListCardsDiv>
-      <ListTitle
-        listId={listId}
-        listName={listName}
-        refreshCard={refreshCard}
-        setRefreshCard={setRefreshCard}
-      />
+      <ListTitle listId={listId} listName={listName} />
       {getMapingCards}
-      <SetNewCard
-        listId={listId}
-        refreshCard={refreshCard}
-        setRefreshCard={setRefreshCard}
-      />
+      <SetNewCard listId={listId} />
     </ListCardsDiv>
   );
 };

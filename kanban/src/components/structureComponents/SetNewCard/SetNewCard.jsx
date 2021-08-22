@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useManageContext } from "../../../Context";
+import { getBoardData, refreshEffect } from "../../../Context/actions";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import {
   apiKey,
@@ -13,7 +15,9 @@ import {
 } from "../../../utility/constantsText";
 import Button from "../../reusableComponents/Button";
 
-const SetNewCard = ({ listId, refreshCard, setRefreshCard }) => {
+const SetNewCard = ({ listId }) => {
+  const { state, dispatch } = useManageContext();
+  const { refresh } = state;
   const [newCardName, setNewCardName] = useState("");
   const [showField, setShowField] = useState(false);
 
@@ -32,16 +36,25 @@ const SetNewCard = ({ listId, refreshCard, setRefreshCard }) => {
   };
 
   const handleAddCart = async () => {
-    await httpRequest({
-      method: "post",
-      url: `${baseTrelloUrl}/cards?key=${apiKey}&token=${apiToken}&idList=${listId}&name=${newCardName}`,
-    });
+    try {
+      await httpRequest({
+        method: "post",
+        url: `${baseTrelloUrl}/cards?key=${apiKey}&token=${apiToken}&idList=${listId}&name=${newCardName}`,
+      });
+    } catch (e) {
+      getBoardData(dispatch, {
+        name: "errorMessage",
+        value: "Something goes wrong",
+      });
+    }
+
     setShowField(!showField);
-    setRefreshCard(!refreshCard);
+    refreshEffect(dispatch, !refresh);
   };
 
-  const getAddBtn = () =>
-    newCardName && <Button label={addBtn} onClick={handleAddCart} />;
+  const getAddBtn = newCardName && (
+    <Button label={addBtn} onClick={handleAddCart} />
+  );
   return showField ? (
     <div className="cardField">
       <textarea
@@ -49,12 +62,12 @@ const SetNewCard = ({ listId, refreshCard, setRefreshCard }) => {
         onChange={handleNewCardName}
       ></textarea>
       <div>
-        {getAddBtn()}
+        {getAddBtn}
         <Button label={cancelBtn} onClick={handleCancel} />
       </div>
     </div>
   ) : (
-    <Button label={`${addBtn}${cardTitle}`} onClick={handleShowTex}></Button>
+    <Button label={`${addBtn}${cardTitle}`} onClick={handleShowTex} />
   );
 };
 
