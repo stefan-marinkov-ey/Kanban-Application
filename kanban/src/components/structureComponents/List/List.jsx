@@ -6,15 +6,13 @@ import {
   baseTrelloUrl,
 } from "../../../utility/constantsKeysAndUrl";
 import Cards from "../Cards/Cards";
-import Button from "../../reusableComponents/Button";
 import { ListCardsDiv } from "../../styleComponents/Container/ListCards_style";
 
-import ListTitle from "./ListTitle";
-import SetNewCard from "./SetNewCard";
+import ListTitle from "../ListTitle/ListTitle";
+import SetNewCard from "../SetNewCard/SetNewCard";
 
 const List = ({ listName, listId }) => {
   const [refreshCard, setRefreshCard] = useState(false);
-
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -28,24 +26,22 @@ const List = ({ listName, listId }) => {
     getAllCards();
   }, [refreshCard, listId]);
 
-  const getMapingCards = () => {
-    return cards.map((card) => {
-      return (
-        <div key={card.id}>
-          <Cards
-            key={card.id}
-            cardName={card.name}
-            cardId={card.id}
-            cardColor={card.cover.color}
-            cardDesc={card.desc}
-            setRefreshCard={setRefreshCard}
-            refreshCard={refreshCard}
-            listName={listName}
-          />
-        </div>
-      );
-    });
-  };
+  const getMapingCards = cards.map((card) => {
+    return (
+      <div key={card.id}>
+        <Cards
+          key={card.id}
+          cardName={card.name}
+          cardId={card.id}
+          cardColor={card.cover.color}
+          cardDesc={card.desc}
+          setRefreshCard={setRefreshCard}
+          refreshCard={refreshCard}
+          listName={listName}
+        />
+      </div>
+    );
+  });
 
   return (
     <ListCardsDiv>
@@ -55,7 +51,7 @@ const List = ({ listName, listId }) => {
         refreshCard={refreshCard}
         setRefreshCard={setRefreshCard}
       />
-      {getMapingCards()}
+      {getMapingCards}
       <SetNewCard
         listId={listId}
         refreshCard={refreshCard}
