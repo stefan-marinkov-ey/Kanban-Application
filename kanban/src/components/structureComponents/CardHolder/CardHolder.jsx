@@ -3,7 +3,7 @@ import { threeDots } from "../../../utility/constantsText";
 import { makeLighterColor } from "../../../utility/utilityFunc";
 import Modal from "../Modal/Modal";
 import EditCard from "../EditCard/EditCard";
-import useModal from "../Modal/useModal";
+import useModal from "../Modal/useModal.js";
 import CardDescription from "../CardDescription/CardDescription";
 
 const CardHolder = ({

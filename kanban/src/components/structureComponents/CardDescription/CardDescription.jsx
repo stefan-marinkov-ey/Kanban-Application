@@ -1,5 +1,4 @@
 import React from "react";
-import { ModalDivDescription } from "../../styleComponents/Container/Modal_styleDescription";
 import Button from "../../reusableComponents/Button/Button";
 import {
   cardColorText,

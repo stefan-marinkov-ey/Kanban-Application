@@ -3,7 +3,7 @@ import { deleteX } from "../../../utility/constantsText";
 import Button from "../../reusableComponents/Button/Button";
 import { CardDivStyled } from "../../styleComponents/Container/CardStyle";
 import CardHolder from "../CardHolder/CardHolder";
-import useModal from "../Modal/useModal";
+import useModal from "../Modal/useModal.js";
 import Modal from "../Modal/Modal";
 import DeleteCard from "../DeleteCard/DeleteCard";
 

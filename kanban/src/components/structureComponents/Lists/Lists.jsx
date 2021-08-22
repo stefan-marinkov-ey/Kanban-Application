@@ -11,7 +11,7 @@ import {
   showLess,
 } from "../../../utility/constantsText";
 import Modal from "../Modal/Modal";
-import useModal from "../Modal/useModal";
+import useModal from "../Modal/useModal.js";
 import NewList from "../NewList";
 
 const Lists = () => {
