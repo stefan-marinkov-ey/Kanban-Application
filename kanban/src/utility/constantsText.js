@@ -64,8 +64,8 @@ export const threeDots = "...";
 
 export const clickDesc = "Click for description";
 
-export const validMail = "Enter valid mail";
-export const validUsername = "Enter valid username";
+export const validMail = "Enter valid mail, please";
+export const validUsername = "Enter valid username, please";
 
 export const validPass =
   "Password must be number and at least 5 characters long";
