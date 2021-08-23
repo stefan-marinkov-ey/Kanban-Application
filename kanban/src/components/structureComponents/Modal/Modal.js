@@ -78,7 +78,7 @@ const Modal = ({ isShowing, hide, children }) => {
 };
 
 Modal.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.element,
   isShowing: PropTypes.bool.isRequired,
   hide: PropTypes.func.isRequired,
 };

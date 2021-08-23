@@ -9,7 +9,7 @@ import {
 } from "../../../utility/constantsKeysAndUrl";
 import { addBtn } from "../../../utility/constantsText";
 import Button from "../../reusableComponents/Button";
-import InputField from "../../reusableComponents/Input/InputField";
+import InputField from "../../reusableComponents/InputField/InputField";
 
 const ListTitle = ({ listId, listName }) => {
   const { state, dispatch } = useManageContext();

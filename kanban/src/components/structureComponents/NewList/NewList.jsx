@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import InputField from "../../reusableComponents/Input/InputField";
+import InputField from "../../reusableComponents/InputField/InputField";
 import Button from "../../reusableComponents/Button/Button";
 import {
   apiKey,

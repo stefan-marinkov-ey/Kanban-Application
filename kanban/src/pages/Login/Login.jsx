@@ -13,10 +13,10 @@ import {
 import { numberValidate, validateNameOrEmail } from "../../utility/validation";
 import { boardRoute } from "../../utility/constantsWithRoutesAndMethods";
 import { useManageContext } from "../../Context/context";
-import { getBoardData } from "../../Context/actions";
+import { getBoardData, refreshEffect } from "../../Context/actions";
 const Login = (props) => {
   const { state, dispatch } = useManageContext();
-  const { loading, errorMessage } = state;
+  const { loading, errorMessage, refresh } = state;
 
   const [emailOrName, setEmailOrName] = useState("");
   const [password, setPassword] = useState("");
@@ -34,6 +34,7 @@ const Login = (props) => {
       let response = await loginUser(dispatch, getUrl);
       if (!response === undefined) return;
       props.history.push(`${boardRoute}`);
+      refreshEffect(dispatch, !refresh);
     } catch (error) {
       getBoardData(dispatch, "Something goes wrong");
     }
