@@ -1,7 +1,7 @@
 import React from "react";
 import { deleteX } from "../../../utility/constantsText";
 import Button from "../../reusableComponents/Button/Button";
-import { CardDivStyled } from "../../styleComponents/Container/CardStyle";
+import { StyleCards } from "./StyleCards.style";
 import CardHolder from "../CardHolder/CardHolder";
 import useModal from "../Modal/useModal.js";
 import Modal from "../Modal/Modal";
@@ -10,8 +10,8 @@ import DeleteCard from "../DeleteCard/DeleteCard";
 const Cards = ({ cardName, cardColor, cardId, cardDesc }) => {
   const { isShowing, toggle } = useModal();
   return (
-    <CardDivStyled>
-      <div>
+    <StyleCards>
+      <div className="holder">
         <CardHolder
           cardName={cardName}
           cardColor={cardColor}
@@ -24,7 +24,7 @@ const Cards = ({ cardName, cardColor, cardId, cardDesc }) => {
           <DeleteCard cardName={cardName} cardId={cardId} toggle={toggle} />
         </Modal>
       </div>
-    </CardDivStyled>
+    </StyleCards>
   );
 };
 

@@ -33,8 +33,8 @@ const Login = (props) => {
     try {
       let response = await loginUser(dispatch, getUrl);
       if (!response === undefined) return;
-      props.history.push(`${boardRoute}`);
       refreshEffect(dispatch, !refresh);
+      props.history.push(`${boardRoute}`);
     } catch (error) {
       getBoardData(dispatch, "Something goes wrong");
     }

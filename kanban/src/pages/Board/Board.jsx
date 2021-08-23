@@ -9,7 +9,7 @@ import {
 } from "../../components/styleComponents/Theme/Themes";
 import { darkMode, lightMode } from "../../utility/constantsText";
 import { useManageContext } from "../../Context/context";
-import { StyleBoard } from "./Board.style";
+import { StyleBoard } from "./StyleBoard.style";
 
 const Board = (props) => {
   const { state } = useManageContext();

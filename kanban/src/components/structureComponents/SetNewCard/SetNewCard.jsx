@@ -14,6 +14,7 @@ import {
   newCardPlaceholder,
 } from "../../../utility/constantsText";
 import Button from "../../reusableComponents/Button";
+import { StyleSetNewCard } from "./StyleSetNewCard.style";
 
 const SetNewCard = ({ listId }) => {
   const { state, dispatch } = useManageContext();
@@ -55,13 +56,13 @@ const SetNewCard = ({ listId }) => {
   const getAddBtn = newCardName && (
     <Button label={addBtn} onClick={handleAddCart} />
   );
-  return showField ? (
+  const showHideField = showField ? (
     <div className="cardField">
       <textarea
         placeholder={newCardPlaceholder}
         onChange={handleNewCardName}
       ></textarea>
-      <div>
+      <div className="btnTextField">
         {getAddBtn}
         <Button label={cancelBtn} onClick={handleCancel} />
       </div>
@@ -69,6 +70,8 @@ const SetNewCard = ({ listId }) => {
   ) : (
     <Button label={`${addBtn}${cardTitle}`} onClick={handleShowTex} />
   );
+
+  return <StyleSetNewCard>{showHideField}</StyleSetNewCard>;
 };
 
 export default SetNewCard;

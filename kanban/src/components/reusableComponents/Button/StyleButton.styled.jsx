@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledButton = styled.button`
+export const StyleButton = styled.button`
   height: 2rem;
   background: ${(props) => props.background};
   border: 2px solid ${(props) => props.theme.toggleBorder};

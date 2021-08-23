@@ -11,10 +11,10 @@ import {
   addBtn,
   cancelBtn,
   creatingNewList,
-  deleteX,
 } from "../../../utility/constantsText";
 import { useManageContext } from "../../../Context";
 import { getBoardData, refreshEffect } from "../../../Context/actions";
+import { StyleNewList } from "./StyleNewList.style";
 
 const NewList = ({ toggle }) => {
   const { state, dispatch } = useManageContext();
@@ -47,27 +47,18 @@ const NewList = ({ toggle }) => {
     toggle();
   };
   return (
-    <div className="modalContent">
-      <div className="newListContent">
-        <div>
-          <div className="middleDiv">
-            <div className="titleAndCancel">
-              <h5>{creatingNewList}</h5>
-              <Button
-                className="cancelX"
-                label={deleteX}
-                onClick={handleCancelEdit}
-              />
-            </div>
-            <InputField onChange={handleChange} value={listName} />
-          </div>
-          <div className="addEndClose">
-            <Button label={addBtn} onClick={handleListName} />
-            <Button label={cancelBtn} onClick={handleCancelEdit} />
-          </div>
+    <StyleNewList>
+      <div className="middleDiv">
+        <div className="titleAndCancel">
+          <h3>{creatingNewList}</h3>
         </div>
+        <InputField onChange={handleChange} value={listName} />
       </div>
-    </div>
+      <div className="addEndClose">
+        <Button label={addBtn} onClick={handleListName} />
+        <Button label={cancelBtn} onClick={handleCancelEdit} />
+      </div>
+    </StyleNewList>
   );
 };
 

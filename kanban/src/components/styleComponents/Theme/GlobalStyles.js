@@ -11,7 +11,6 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.text};
     transition: all 0.50s linear;
 
-    width: 100%;
   text-align: center;
   a {
     text-decoration: none;

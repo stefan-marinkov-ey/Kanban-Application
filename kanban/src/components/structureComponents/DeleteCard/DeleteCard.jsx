@@ -14,6 +14,7 @@ import {
 } from "../../../utility/constantsText";
 import { useManageContext } from "../../../Context";
 import { getBoardData, refreshEffect } from "../../../Context/actions";
+import { StyleDeleteCard } from "./StyleDeleteCard.style";
 
 const DeleteCard = ({ cardName, cardId, toggle }) => {
   const { state, dispatch } = useManageContext();
@@ -34,12 +35,12 @@ const DeleteCard = ({ cardName, cardId, toggle }) => {
   };
 
   return (
-    <div className="DeleteContent">
-      <div>
+    <StyleDeleteCard>
+      <div className="question">
         <h2>
-          {deletingCard}
-          {cardName}
-          {deletingCardName}
+          {`${deletingCard}
+          ${cardName}
+          ${deletingCardName}`}
         </h2>
       </div>
 
@@ -47,7 +48,7 @@ const DeleteCard = ({ cardName, cardId, toggle }) => {
         <Button label={deleteBtn} onClick={handleDelete} />
         <Button label={cancelBtn} onClick={() => toggle()} />
       </div>
-    </div>
+    </StyleDeleteCard>
   );
 };
 

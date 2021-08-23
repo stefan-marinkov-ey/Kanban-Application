@@ -3,7 +3,6 @@ import { httpRequest } from "../../../fetchComponent/httpRequest";
 import { getLists } from "../../../utility/constantsKeysAndUrl";
 import List from "../List/List";
 import Button from "../../reusableComponents/Button";
-import { ListsDiv } from "../../styleComponents/Container/Lists_style";
 import {
   creatingNewList,
   listsText,
@@ -16,6 +15,7 @@ import NewList from "../NewList";
 import { useManageContext } from "../../../Context";
 import { getBoardData, refreshEffect } from "../../../Context/actions";
 import Loading from "../Loading";
+import { StyleLists } from "./StyleLists.style";
 
 const Lists = () => {
   const { state, dispatch } = useManageContext();
@@ -61,7 +61,7 @@ const Lists = () => {
   );
 
   return (
-    <ListsDiv>
+    <StyleLists>
       <div className="listsContent">
         <span>{listsText}</span>
         <Button
@@ -70,12 +70,12 @@ const Lists = () => {
           onClick={handleSeeAll}
         />
       </div>
-      <div>{getListsAll}</div>
+      <div className="allLists">{getListsAll}</div>
       <Button className="newListBtn" label={creatingNewList} onClick={toggle} />
       <Modal isShowing={isShowing} hide={toggle}>
         <NewList toggle={toggle} />
       </Modal>
-    </ListsDiv>
+    </StyleLists>
   );
 };
 
