@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import { getLists } from "../../../utility/constantsKeysAndUrl";
 import List from "../List/List";
@@ -11,34 +11,54 @@ import {
   showLess,
 } from "../../../utility/constantsText";
 import Modal from "../Modal/Modal";
-import useModal from "../Modal/useModal";
+import useModal from "../Modal/useModal.js";
 import NewList from "../NewList";
+import { useManageContext } from "../../../Context";
+import { getBoardData, refreshEffect } from "../../../Context/actions";
+import Loading from "../Loading";
 
 const Lists = () => {
+  const { state, dispatch } = useManageContext();
+  const { refresh } = state;
   const { isShowing, toggle } = useModal();
   const [lists, setLists] = useState([]);
   const [seeAll, setSeeAll] = useState(false);
 
   const handleSeeAll = () => {
     setSeeAll(!seeAll);
+    refreshEffect(dispatch, !refresh);
   };
+
+  const getAllLists = useCallback(async () => {
+    try {
+      let response = await httpRequest(getLists);
+      !refresh && setLists(response.responseData.data);
+    } catch (e) {
+      getBoardData(dispatch, {
+        name: "errorMessage",
+        value: "Something goes wrong",
+      });
+    }
+  }, [refresh, dispatch]);
 
   useEffect(() => {
-    async function getAllLists() {
-      let response = await httpRequest(getLists);
-      setLists(response.responseData.data);
-    }
-
     getAllLists();
-  }, [toggle]);
+  }, [getAllLists]);
 
-  const getListsAll = () => {
-    return lists
-      .filter((list, index) => (!seeAll ? index < 3 : list))
-      .map((list) => {
-        return <List key={list.id} listName={list.name} listId={list.id} />;
-      });
-  };
+  const getListsAll = useMemo(
+    () =>
+      !lists.length ? (
+        <Loading />
+      ) : (
+        lists
+          .filter((list, index) => (!seeAll ? index < 3 : list))
+          .map((list) => {
+            return <List key={list.id} listName={list.name} listId={list.id} />;
+          })
+      ),
+
+    [lists, seeAll]
+  );
 
   return (
     <ListsDiv>
@@ -50,7 +70,7 @@ const Lists = () => {
           onClick={handleSeeAll}
         />
       </div>
-      <div>{getListsAll()}</div>
+      <div>{getListsAll}</div>
       <Button className="newListBtn" label={creatingNewList} onClick={toggle} />
       <Modal isShowing={isShowing} hide={toggle}>
         <NewList toggle={toggle} />

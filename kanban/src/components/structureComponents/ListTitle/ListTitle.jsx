@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useManageContext } from "../../../Context";
+import { getBoardData, refreshEffect } from "../../../Context/actions";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import {
   apiKey,
@@ -9,11 +11,13 @@ import { addBtn } from "../../../utility/constantsText";
 import Button from "../../reusableComponents/Button";
 import InputField from "../../reusableComponents/Input/InputField";
 
-const ListTitle = ({ listId, listName, refreshCard, setRefreshCard }) => {
+const ListTitle = ({ listId, listName }) => {
+  const { state, dispatch } = useManageContext();
+  const { refresh } = state;
   const [listTitle, setListTitle] = useState(false);
   const [newListName, setListName] = useState(listName || "");
 
-  const handleListName = async (e) => {
+  const handleListName = (e) => {
     let value = e.target.value;
     setListName(value);
   };
@@ -21,20 +25,28 @@ const ListTitle = ({ listId, listName, refreshCard, setRefreshCard }) => {
   const handleTitleOnBlur = () => {
     setListTitle(!listTitle);
     setListName(listName);
-    setRefreshCard(!refreshCard);
+    refreshEffect(dispatch, !refresh);
   };
   const handleListTitle = async () => {
-    await handleTitleOnBlur();
+    try {
+      await Promise.all([
+        handleTitleOnBlur(),
+        httpRequest({
+          method: "put",
+          url: `${baseTrelloUrl}lists/${listId}?key=${apiKey}&token=${apiToken}`,
+          data: {
+            name: newListName,
+          },
+        }),
+      ]);
+    } catch (e) {
+      getBoardData(dispatch, {
+        name: "errorMessage",
+        value: "Something goes wrong",
+      });
+    }
 
-    await httpRequest({
-      method: "put",
-      url: `${baseTrelloUrl}lists/${listId}?key=${apiKey}&token=${apiToken}`,
-      data: {
-        name: newListName,
-      },
-    });
-
-    setRefreshCard(!refreshCard);
+    refreshEffect(dispatch, !refresh);
     setListTitle(!listTitle);
     setListName(newListName);
   };

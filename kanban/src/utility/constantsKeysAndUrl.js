@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const apiKey = process.env.REACT_APP_API_KEY;
 export const apiToken = process.env.REACT_APP_TOKEN;
 export const baseTrelloUrl = "https://api.trello.com/1/";
@@ -21,3 +23,13 @@ export const getCards = {
   method: "get",
   url: `${baseTrelloUrl}cards/61152d0073530127363cd062?key=${apiKey}&token=${apiToken}`,
 };
+
+const randomAxios = axios.create({
+  baseURL: baseRandomUserUrl,
+});
+
+const trelloAxios = axios.create({
+  baseURL: baseTrelloUrl,
+});
+
+export { randomAxios, trelloAxios };

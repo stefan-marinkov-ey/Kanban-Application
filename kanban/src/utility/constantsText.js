@@ -74,3 +74,5 @@ export const required = "Required";
 export const notFound = "Page Doesn't Exist";
 
 export const backToLogin = "Back to login";
+
+export const requiredField = "Required field";

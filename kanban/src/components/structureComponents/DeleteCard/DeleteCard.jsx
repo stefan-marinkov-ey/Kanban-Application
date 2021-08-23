@@ -12,20 +12,25 @@ import {
   deletingCard,
   deletingCardName,
 } from "../../../utility/constantsText";
+import { useManageContext } from "../../../Context";
+import { getBoardData, refreshEffect } from "../../../Context/actions";
 
-const DeleteCard = ({
-  cardName,
-  cardId,
-  refreshCard,
-  setRefreshCard,
-  toggle,
-}) => {
+const DeleteCard = ({ cardName, cardId, toggle }) => {
+  const { state, dispatch } = useManageContext();
+  const { refresh } = state;
   const handleDelete = async () => {
-    await httpRequest({
-      method: `delete`,
-      url: `${baseTrelloUrl}cards/${cardId}?key=${apiKey}&token=${apiToken}`,
-    });
-    setRefreshCard(!refreshCard);
+    try {
+      await httpRequest({
+        method: "delete",
+        url: `${baseTrelloUrl}cards/${cardId}?key=${apiKey}&token=${apiToken}`,
+      });
+      refreshEffect(dispatch, !refresh);
+    } catch (e) {
+      getBoardData(dispatch, {
+        name: "errorMessage",
+        value: "Something goes wrong",
+      });
+    }
   };
 
   return (

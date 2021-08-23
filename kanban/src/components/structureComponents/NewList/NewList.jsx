@@ -13,8 +13,12 @@ import {
   creatingNewList,
   deleteX,
 } from "../../../utility/constantsText";
+import { useManageContext } from "../../../Context";
+import { getBoardData, refreshEffect } from "../../../Context/actions";
 
 const NewList = ({ toggle }) => {
+  const { state, dispatch } = useManageContext();
+  const { refresh } = state;
   const [listName, setListName] = useState("");
 
   const handleChange = async (e) => {
@@ -23,11 +27,19 @@ const NewList = ({ toggle }) => {
   };
 
   const handleListName = async () => {
-    await httpRequest({
-      method: `post`,
-      url: `${baseTrelloUrl}lists?key=${apiKey}&token=${apiToken}&name=${listName}&idBoard=61152cf60660483f28f5ffda`,
-    });
+    try {
+      await httpRequest({
+        method: `post`,
+        url: `${baseTrelloUrl}lists?key=${apiKey}&token=${apiToken}&name=${listName}&idBoard=61152cf60660483f28f5ffda`,
+      });
+    } catch (e) {
+      getBoardData(dispatch, {
+        name: "errorMessage",
+        value: "Something goes wrong",
+      });
+    }
 
+    refreshEffect(dispatch, !refresh);
     toggle();
   };
   const handleCancelEdit = () => {

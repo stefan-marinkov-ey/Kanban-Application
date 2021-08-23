@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Button from "../../reusableComponents/Button";
 import { getBoardData, logoutAction, themes } from "../../../Context/actions";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
@@ -25,17 +25,24 @@ const Header = (props) => {
     props.history.push(`${loginRoute}`);
   };
 
-  useEffect(() => {
-    async function getBoardName() {
+  const getBoardName = useCallback(async () => {
+    try {
       let response = await httpRequest(getBoard);
-
       getBoardData(dispatch, {
         name: "nameBoard",
         value: response.responseData.data.name,
       });
+    } catch (e) {
+      getBoardData(dispatch, {
+        name: "errorMessage",
+        value: "Something goes wrong",
+      });
     }
-    getBoardName();
   }, [dispatch]);
+
+  useEffect(() => {
+    getBoardName();
+  }, [getBoardName]);
 
   return (
     <HeaderStyle>
