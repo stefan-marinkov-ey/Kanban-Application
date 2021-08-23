@@ -7,6 +7,8 @@ import AppRoute from "./AppRoute/AppRoute";
 import Login from "./pages/Login/Login";
 import ManageContext from "./Context/context";
 import styled from "styled-components";
+import { Content } from "./components/structureComponents/ScrollButton/StyleScrollButton.style";
+import ScrollButton from "./components/structureComponents/ScrollButton";
 
 const getRouteMap = () => {
   return routes.map((route) => (
@@ -35,6 +37,8 @@ function App() {
             {getRouteMap()}
           </Switch>
         </Router>
+        <Content />
+        <ScrollButton />
       </StyleApp>
     </ManageContext>
   );
