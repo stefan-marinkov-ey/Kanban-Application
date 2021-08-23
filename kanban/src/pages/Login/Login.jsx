@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Button from "../../components/reusableComponents/Button";
-import InputField from "../../components/reusableComponents/Input/InputField";
+import InputField from "../../components/reusableComponents/InputField/InputField";
 import { loginUser } from "../../Context";
 import { getUrl } from "../../utility/constantsKeysAndUrl";
 import { LoginPage } from "../../components/styleComponents/Container/Login_styled";
@@ -16,11 +16,18 @@ import { useManageContext } from "../../Context/context";
 import { getBoardData } from "../../Context/actions";
 const Login = (props) => {
   const { state, dispatch } = useManageContext();
-
   const { loading, errorMessage } = state;
 
-  const [email, setEmail] = useState("");
+  const [emailOrName, setEmailOrName] = useState("");
   const [password, setPassword] = useState("");
+
+  const [validRaturnEmailOrName, setValidRaturnEmailOrName] = useState("");
+  const [validRaturnPassword, setValidRaturnPassword] = useState("");
+
+  const validateName = <span>{validRaturnEmailOrName}</span>;
+  const validatePassword = <span>{validRaturnPassword}</span>;
+  const disabledBtn =
+    validRaturnEmailOrName || validRaturnPassword ? !loading : loading;
 
   const handleLogin = async () => {
     try {
@@ -34,12 +41,21 @@ const Login = (props) => {
 
   const handleChangeName = (e) => {
     e.preventDefault();
-    setEmail(e.target.value);
+    setEmailOrName(e.target.value);
   };
   const handleChangePassword = (e) => {
     e.preventDefault();
     setPassword(e.target.value);
   };
+
+  const validationFunc = useCallback(() => {
+    setValidRaturnEmailOrName(validateNameOrEmail(emailOrName));
+    setValidRaturnPassword(numberValidate(password));
+  }, [emailOrName, password]);
+
+  useEffect(() => {
+    validationFunc();
+  }, [validationFunc]);
 
   return (
     <LoginPage>
@@ -49,22 +65,22 @@ const Login = (props) => {
         <InputField
           label={loginNameOrEmail}
           onChange={handleChangeName}
-          value={email}
+          value={emailOrName}
           type="text"
         />
-        {validateNameOrEmail(email)}
+        {validateName}
         <InputField
           label={loginPassword}
           onChange={handleChangePassword}
           value={password}
           type="password"
         />
-        {numberValidate(password)}
+        {validatePassword}
         <Button
           label={loginBtn}
           type="submit"
           onClick={handleLogin}
-          loading={loading}
+          loading={disabledBtn}
         ></Button>
       </form>
     </LoginPage>

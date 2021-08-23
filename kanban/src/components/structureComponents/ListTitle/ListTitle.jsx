@@ -11,7 +11,7 @@ import { addBtn } from "../../../utility/constantsText";
 import Button from "../../reusableComponents/Button";
 import InputField from "../../reusableComponents/Input/InputField";
 
-const ListTitle = ({ listId, listName, refreshCard, setRefreshCard }) => {
+const ListTitle = ({ listId, listName }) => {
   const { state, dispatch } = useManageContext();
   const { refresh } = state;
   const [listTitle, setListTitle] = useState(false);

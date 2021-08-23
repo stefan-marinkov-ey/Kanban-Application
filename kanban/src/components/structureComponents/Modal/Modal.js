@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 
@@ -74,5 +75,17 @@ const Modal = ({ isShowing, hide, children }) => {
         document.body
       )
     : null;
+};
+
+Modal.propTypes = {
+  children: PropTypes.string,
+  isShowing: PropTypes.bool.isRequired,
+  hide: PropTypes.func.isRequired,
+};
+
+Modal.defaultProps = {
+  children: "",
+  isShowing: false,
+  hide: () => {},
 };
 export default Modal;

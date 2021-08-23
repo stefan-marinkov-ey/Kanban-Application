@@ -1,4 +1,4 @@
-import axios from "axios";
+import { httpRequest } from "../fetchComponent/httpRequest";
 import {
   BOARD_NAME,
   LOGIN_ERROR,
@@ -12,8 +12,8 @@ import {
 export async function loginUser(dispatch, loginPayload) {
   try {
     dispatch({ type: REQUEST_LOGIN });
-    let response = await axios(loginPayload);
-    response.data.results.map((user) => {
+    let response = await httpRequest(loginPayload);
+    response.responseData.data.results.map((user) => {
       let data = {
         firstName: user.name.first,
         lastName: user.name.last,
