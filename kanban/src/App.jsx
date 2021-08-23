@@ -6,6 +6,7 @@ import routes from "./utility/routes";
 import AppRoute from "./AppRoute/AppRoute";
 import Login from "./pages/Login/Login";
 import ManageContext from "./Context/context";
+import styled from "styled-components";
 
 const getRouteMap = () => {
   return routes.map((route) => (
@@ -18,17 +19,23 @@ const getRouteMap = () => {
   ));
 };
 
+const StyleApp = styled.div`
+  width: 100%;
+  height: 100%;
+  margin: 0;
+`;
+
 function App() {
   return (
     <ManageContext>
-      <div>
+      <StyleApp>
         <Router>
           <Switch>
             <Route exact path="/login" component={Login} />
             {getRouteMap()}
           </Switch>
         </Router>
-      </div>
+      </StyleApp>
     </ManageContext>
   );
 }

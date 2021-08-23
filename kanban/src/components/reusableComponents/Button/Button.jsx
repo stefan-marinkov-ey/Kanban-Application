@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { StyledPrimaryButton } from "../../styleComponents/Container/Button_styled";
+import { StyledButton } from "./Button.styled.jsx";
 
 const Button = ({ label, onClick, type, loading, className, onMouseDown }) => {
   return (
-    <StyledPrimaryButton
+    <StyledButton
       className={className}
       type={type}
       onClick={onClick}
@@ -12,7 +12,7 @@ const Button = ({ label, onClick, type, loading, className, onMouseDown }) => {
       onMouseDown={onMouseDown}
     >
       {label}
-    </StyledPrimaryButton>
+    </StyledButton>
   );
 };
 

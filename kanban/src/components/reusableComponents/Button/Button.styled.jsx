@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
-export const StyledPrimaryButton = styled.button`
-  margin-top: 5%;
-  margin-left: 5%;
-  width: 60%;
+export const StyledButton = styled.button`
   height: 2rem;
-  background: ${(props) => props.theme.background};
-  color: ${(props) => props.theme.text};
+  background: ${(props) => props.background};
+  border: 2px solid ${(props) => props.theme.toggleBorder};
+  color: ${(props) => props.theme.color};
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.6rem;
   display: flex;
   align-items: center;
   justify-content: center;
