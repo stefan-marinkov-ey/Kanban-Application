@@ -21,6 +21,11 @@ export const StyleDescription = styled.div`
       box-shadow: inset 0.5px 0.5px 0.5px 1px lightgray;
       overflow: hidden;
       color: ${(props) => props.theme.primaryText};
+      h5 {
+        color: ${(props) => props.theme.primaryText};
+        font-weight: bolder;
+        text-transform: uppercase;
+      }
     }
     .divBtnHolder {
       display: flex;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useManageContext } from "../../../Context";
 import { getBoardData, refreshEffect } from "../../../Context/actions";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
@@ -17,6 +17,7 @@ import Button from "../../reusableComponents/Button";
 import { StyleSetNewCard } from "./SetNewCard.style.jsx";
 
 const SetNewCard = ({ listId }) => {
+  const ref = useRef();
   const { state, dispatch } = useManageContext();
   const { refresh } = state;
   const [newCardName, setNewCardName] = useState("");
@@ -53,11 +54,23 @@ const SetNewCard = ({ listId }) => {
     refreshEffect(dispatch, !refresh);
   };
 
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      if (showField && ref.current && !ref.current.contains(e.target)) {
+        setShowField(false);
+      }
+    };
+    document.addEventListener("mousedown", checkIfClickedOutside);
+    return () => {
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [showField]);
+
   const getAddBtn = newCardName && (
     <Button label={addBtn} onClick={handleAddCart} />
   );
   const showHideField = showField ? (
-    <div className="cardField">
+    <div className="cardField" ref={ref}>
       <textarea
         placeholder={newCardPlaceholder}
         onChange={handleNewCardName}

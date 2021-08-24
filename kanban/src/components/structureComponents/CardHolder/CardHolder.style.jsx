@@ -11,9 +11,12 @@ export const StyleCardHolder = styled.div`
     justify-content: space-between;
     padding: 0 5%;
     font-weight: bolder;
+    text-transform: uppercase;
     box-shadow: 0.5px 0.5px 0.5px 0.5px ${(props) => props.theme.primaryText};
     span {
       visibility: hidden;
+      font-weight: bolder;
+      font-size: large;
     }
   }
   .cardDesc {

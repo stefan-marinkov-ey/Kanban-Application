@@ -1,3 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button render should match snapshot 1`] = `ShallowWrapper {}`;
+exports[`Button Component Should render 1`] = `
+Array [
+  <styled.button
+    className=""
+    onMouseDown={[Function]}
+    type="text"
+  >
+    
+  </styled.button>,
+]
+`;
+
+exports[`Button Component should find label 1`] = `Array []`;
+
+exports[`Button Component should render correctly 1`] = `
+Object {
+  "children": "Some label with text",
+  "className": "",
+  "disabled": undefined,
+  "onClick": undefined,
+  "onMouseDown": [Function],
+  "type": "text",
+}
+`;

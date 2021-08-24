@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Input Component Should set value to state when input is changed 1`] = `ShallowWrapper {}`;
+
 exports[`Input Component should match snapshot 1`] = `ShallowWrapper {}`;

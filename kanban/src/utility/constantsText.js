@@ -60,7 +60,7 @@ export const darkMode = "Dark Mode";
 
 export const lightMode = "Light Mode";
 
-export const threeDots = "...";
+export const threeDots = ". . .";
 
 export const clickDesc = "Click for description";
 
