@@ -35,7 +35,7 @@ const List = ({ listName, listId }) => {
   }, [listId, refresh, dispatch]);
 
   useEffect(() => {
-    if (!refresh) getAllCards();
+    !refresh && getAllCards();
   }, [getAllCards, refresh]);
 
   const getMapingCards = useMemo(
