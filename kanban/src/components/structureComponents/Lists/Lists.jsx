@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import { getLists } from "../../../utility/constantsKeysAndUrl";
 import List from "../List/List";
@@ -22,6 +28,7 @@ import Loading from "../Loading";
 import { StyleLists } from "./Lists.style.jsx";
 
 const Lists = () => {
+  const mountRef = useRef(true);
   const { state, dispatch } = useManageContext();
   const { refresh, seeAll, errorMessage } = state;
   const { isShowing, toggle } = useModal();
@@ -35,7 +42,9 @@ const Lists = () => {
   const getAllLists = useCallback(async () => {
     try {
       let response = await httpRequest(getLists);
-      !refresh && setLists(response.responseData.data);
+      setLists(response.responseData.data);
+      if (!mountRef.current) return null;
+      refreshEffect(dispatch, !refresh);
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
@@ -46,6 +55,9 @@ const Lists = () => {
 
   useEffect(() => {
     getAllLists();
+    return () => {
+      mountRef.current = false;
+    };
   }, [getAllLists]);
 
   const getListsAll = useMemo(

@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import {
   apiKey,
@@ -14,6 +20,7 @@ import { useManageContext } from "../../../Context";
 import { StyleList } from "./List.style.jsx";
 
 const List = ({ listName, listId }) => {
+  const mountedRef = useRef(true);
   const { state, dispatch } = useManageContext();
   const { refresh, errorMessage } = state;
   const [cards, setCards] = useState([]);
@@ -24,19 +31,24 @@ const List = ({ listName, listId }) => {
         method: "get",
         url: `${baseTrelloUrl}lists/${listId}/cards?key=${apiKey}&token=${apiToken}`,
       });
-      refreshEffect(dispatch, !refresh);
+
       if (response.responseData.data) setCards(response.responseData.data);
+      if (!mountedRef.current) return null;
+      refreshEffect(dispatch, !refresh);
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
         value: "Something went wrong, refresh the page",
       });
     }
-  }, [listId, refresh, dispatch]);
+  }, [listId, refresh, dispatch, mountedRef]);
 
   useEffect(() => {
-    !refresh && getAllCards();
-  }, [getAllCards, refresh]);
+    getAllCards();
+    return () => {
+      mountedRef.current = false;
+    };
+  }, [getAllCards]);
 
   const getMapingCards = useMemo(
     () =>
