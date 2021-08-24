@@ -6,6 +6,7 @@ import {
   LOGOUT,
   REFRESH,
   REQUEST_LOGIN,
+  SEE_ALL,
   THEMES,
 } from "../utility/constantsWithRoutesAndMethods";
 
@@ -42,6 +43,10 @@ export async function getBoardData(dispatch, kanban) {
 }
 export async function refreshEffect(dispatch, refreshList) {
   dispatch({ type: REFRESH, payload: refreshList });
+}
+export async function seeAllLists(dispatch, seeAll) {
+  dispatch({ type: SEE_ALL, payload: seeAll });
+  localStorage.setItem("currentLists", JSON.stringify(seeAll));
 }
 
 export async function logoutAction(dispatch) {

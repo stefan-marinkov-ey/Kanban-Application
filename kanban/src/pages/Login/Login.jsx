@@ -13,7 +13,7 @@ import { numberValidate, validateNameOrEmail } from "../../utility/validation";
 import { boardRoute } from "../../utility/constantsWithRoutesAndMethods";
 import { useManageContext } from "../../Context/context";
 import { getBoardData, refreshEffect } from "../../Context/actions";
-import { StyleLoginPage } from "./StyleLogin.style.jsx";
+import { StyleLoginPage } from "./Login.style.jsx";
 const Login = (props) => {
   const { state, dispatch } = useManageContext();
   const { loading, errorMessage, refresh } = state;
@@ -35,6 +35,7 @@ const Login = (props) => {
       if (!response === undefined) return;
       refreshEffect(dispatch, !refresh);
       props.history.push(`${boardRoute}`);
+      window.location.reload();
     } catch (error) {
       getBoardData(dispatch, "Something goes wrong");
     }

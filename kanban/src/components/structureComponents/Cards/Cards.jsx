@@ -1,13 +1,13 @@
 import React from "react";
 import { deleteX } from "../../../utility/constantsText";
 import Button from "../../reusableComponents/Button/Button";
-import { StyleCards } from "./StyleCards.style";
+import { StyleCards } from "./Cards.style.jsx";
 import CardHolder from "../CardHolder/CardHolder";
 import useModal from "../Modal/useModal.js";
 import Modal from "../Modal/Modal";
 import DeleteCard from "../DeleteCard/DeleteCard";
 
-const Cards = ({ cardName, cardColor, cardId, cardDesc }) => {
+const Cards = ({ cardName, cardColor, cardId, cardDesc, listName }) => {
   const { isShowing, toggle } = useModal();
   return (
     <StyleCards>
@@ -17,6 +17,7 @@ const Cards = ({ cardName, cardColor, cardId, cardDesc }) => {
           cardColor={cardColor}
           cardId={cardId}
           cardDesc={cardDesc}
+          listName={listName}
         />
         <Button label={deleteX} onClick={toggle} />
 

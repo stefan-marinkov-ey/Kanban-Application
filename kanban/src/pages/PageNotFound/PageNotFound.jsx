@@ -3,7 +3,7 @@ import Button from "../../components/reusableComponents/Button";
 import { logoutAction, useManageContext } from "../../Context";
 import { backToLogin, notFound } from "../../utility/constantsText";
 import { loginRoute } from "../../utility/constantsWithRoutesAndMethods";
-import { StyleNotFound } from "./StyleNotFound.style.jsx";
+import { StyleNotFound } from "./PageNotFound.style.jsx";
 
 const PageNotFound = (props) => {
   const { dispatch } = useManageContext();

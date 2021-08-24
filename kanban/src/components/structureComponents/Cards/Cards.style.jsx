@@ -4,7 +4,7 @@ export const StyleCards = styled.div`
   width: 90%;
   margin: 0 auto;
   margin-bottom: 5%;
-  color: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.primaryText};
   .holder {
     display: flex;
     justify-content: space-between;

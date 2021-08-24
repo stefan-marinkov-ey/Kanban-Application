@@ -11,16 +11,16 @@ import { httpRequest } from "../../../fetchComponent/httpRequest";
 import {
   addBtn,
   cancelBtn,
-  cardColorText,
   cardDescription,
+  chosenColor,
   editCard,
   editCardName,
-  editInput,
   nameForCard,
 } from "../../../utility/constantsText";
 import { getBoardData, refreshEffect } from "../../../Context/actions";
 import { useManageContext } from "../../../Context";
-import { StyleEdit } from "./StyleEdit.style";
+import { StyleEdit } from "./EditCard.style.jsx";
+import { colorCheckobox, makeLighterColor } from "../../../utility/utilityFunc";
 
 const EditCard = ({ cardId, cardName, cardDesc, cardColor, toggle }) => {
   const { state, dispatch } = useManageContext();
@@ -29,8 +29,7 @@ const EditCard = ({ cardId, cardName, cardDesc, cardColor, toggle }) => {
   const [cardEditDescription, setCardEditDescription] = useState(
     cardDesc || ""
   );
-  const [cardEditColor, setCardEditColor] = useState(cardColor || "");
-
+  const [cardEditColor, setCardEditColor] = useState(cardColor);
   const handleChangeName = async (e) => {
     let value = e.target.value;
     setCardEditName(value);
@@ -39,9 +38,14 @@ const EditCard = ({ cardId, cardName, cardDesc, cardColor, toggle }) => {
     let value = e.target.value;
     setCardEditDescription(value);
   };
-  const handleChangeColor = async (e) => {
-    let value = e.target.value;
-    setCardEditColor(value);
+
+  const handleChangeColor = async (color) => {
+    let chosen = "";
+    colorCheckobox.filter((item) => {
+      return item === color ? (chosen = color) : item;
+    });
+
+    setCardEditColor(chosen);
   };
   const handleCancelEdit = () => {
     setCardEditName(cardName);
@@ -55,6 +59,7 @@ const EditCard = ({ cardId, cardName, cardDesc, cardColor, toggle }) => {
       await httpRequest({
         method: "put",
         url: `${baseTrelloUrl}cards/${cardId}?key=${apiKey}&token=${apiToken}`,
+
         data: {
           name: cardEditName,
           desc: cardEditDescription,
@@ -75,13 +80,27 @@ const EditCard = ({ cardId, cardName, cardDesc, cardColor, toggle }) => {
     toggle();
   };
 
+  const chooseColor = () =>
+    colorCheckobox.map((color, index) => {
+      let spanCheck = makeLighterColor(color);
+      return (
+        <span
+          key={index}
+          style={{
+            width: "1rem",
+            height: "1rem",
+            background: spanCheck.background,
+          }}
+          onClick={() => handleChangeColor(color)}
+        ></span>
+      );
+    });
+
   return (
     <StyleEdit>
       <div className="EditContent">
         <div className="editDiv">
-          <h2>
-            {editCard} {cardName} {editCardName}
-          </h2>
+          <h2>{`${editCard} ${cardName} ${editCardName}`}</h2>
         </div>
         <div className="editDiv">
           <InputField
@@ -94,12 +113,11 @@ const EditCard = ({ cardId, cardName, cardDesc, cardColor, toggle }) => {
             onChange={handleChangeDescription}
             value={cardEditDescription}
           />
-          <InputField
-            className={editInput}
-            label={cardColorText}
-            onChange={handleChangeColor}
-            value={cardEditColor}
-          />
+          <p>
+            {`${chosenColor}
+            ${cardEditColor}`}
+          </p>
+          <div className="checkboxes">{chooseColor()}</div>
         </div>
         <div className="editDiv holderBtns">
           <Button label={addBtn} onClick={handleEditCardFields} />

@@ -5,9 +5,9 @@ import Modal from "../Modal/Modal";
 import EditCard from "../EditCard/EditCard";
 import useModal from "../Modal/useModal.js";
 import CardDescription from "../CardDescription/CardDescription";
-import { StyleCardHolder } from "./StyleCardHolder.style";
+import { StyleCardHolder } from "./CardHolder.style.jsx";
 
-const CardHolder = ({ cardName, cardColor, cardDesc, cardId }) => {
+const CardHolder = ({ cardName, cardColor, cardDesc, cardId, listName }) => {
   const { isShowing, toggle } = useModal();
   const { isShowing: Desc, toggle: toggleDesc } = useModal();
   const elementP = makeLighterColor(cardColor);
@@ -25,6 +25,7 @@ const CardHolder = ({ cardName, cardColor, cardDesc, cardId }) => {
           cardDesc={cardDesc}
           cardName={cardName}
           elementP={elementP}
+          listName={listName}
           toggleDesc={toggleDesc}
           Desc={Desc}
         />

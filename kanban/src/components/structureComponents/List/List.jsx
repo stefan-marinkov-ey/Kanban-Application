@@ -11,7 +11,7 @@ import ListTitle from "../ListTitle/ListTitle";
 import SetNewCard from "../SetNewCard/SetNewCard";
 import { getBoardData, refreshEffect } from "../../../Context/actions";
 import { useManageContext } from "../../../Context";
-import { StyleList } from "./StyleList.style";
+import { StyleList } from "./List.style.jsx";
 
 const List = ({ listName, listId }) => {
   const { state, dispatch } = useManageContext();

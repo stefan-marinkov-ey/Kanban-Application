@@ -13,19 +13,22 @@ import Modal from "../Modal/Modal";
 import useModal from "../Modal/useModal.js";
 import NewList from "../NewList";
 import { useManageContext } from "../../../Context";
-import { getBoardData, refreshEffect } from "../../../Context/actions";
+import {
+  getBoardData,
+  refreshEffect,
+  seeAllLists,
+} from "../../../Context/actions";
 import Loading from "../Loading";
-import { StyleLists } from "./StyleLists.style";
+import { StyleLists } from "./Lists.style.jsx";
 
 const Lists = () => {
   const { state, dispatch } = useManageContext();
-  const { refresh } = state;
+  const { refresh, seeAll } = state;
   const { isShowing, toggle } = useModal();
   const [lists, setLists] = useState([]);
-  const [seeAll, setSeeAll] = useState(false);
 
   const handleSeeAll = () => {
-    setSeeAll(!seeAll);
+    seeAllLists(dispatch, !seeAll);
     refreshEffect(dispatch, !refresh);
   };
 

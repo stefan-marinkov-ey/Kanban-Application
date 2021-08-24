@@ -14,7 +14,7 @@ import {
 } from "../../../utility/constantsText";
 import { useManageContext } from "../../../Context";
 import { getBoardData, refreshEffect } from "../../../Context/actions";
-import { StyleNewList } from "./StyleNewList.style";
+import { StyleNewList } from "./NewList.style.jsx";
 
 const NewList = ({ toggle }) => {
   const { state, dispatch } = useManageContext();

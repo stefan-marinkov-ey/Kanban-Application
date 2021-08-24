@@ -6,6 +6,7 @@ import {
   REQUEST_LOGIN,
   THEMES,
   REFRESH,
+  SEE_ALL,
 } from "../utility/constantsWithRoutesAndMethods";
 
 let user = localStorage.getItem("currentUser")
@@ -21,6 +22,10 @@ let themeToggle = localStorage.getItem("currentTheme")
   ? JSON.parse(localStorage.getItem("currentTheme"))
   : "";
 
+let seeMoreLess = localStorage.getItem("currentLists")
+  ? JSON.parse(localStorage.getItem("currentLists"))
+  : "";
+
 export const initialState = {
   user: user,
   token: token,
@@ -30,6 +35,7 @@ export const initialState = {
   themeToggle: themeToggle,
   nameBoard: "",
   refresh: false,
+  seeAll: seeMoreLess || false,
 };
 
 export const AuthReducer = (initialState, action) => {
@@ -76,6 +82,11 @@ export const AuthReducer = (initialState, action) => {
       return {
         ...initialState,
         refresh: action.payload,
+      };
+    case SEE_ALL:
+      return {
+        ...initialState,
+        seeAll: action.payload,
       };
 
     default:
