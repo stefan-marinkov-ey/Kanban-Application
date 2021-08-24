@@ -9,7 +9,8 @@ import {
 } from "../../../utility/constantsKeysAndUrl";
 import { addBtn } from "../../../utility/constantsText";
 import Button from "../../reusableComponents/Button";
-import InputField from "../../reusableComponents/Input/InputField";
+import InputField from "../../reusableComponents/InputField/InputField";
+import { StyleListTitle } from "./StyleListTitle";
 
 const ListTitle = ({ listId, listName }) => {
   const { state, dispatch } = useManageContext();
@@ -64,7 +65,7 @@ const ListTitle = ({ listId, listName }) => {
     </div>
   );
 
-  return <div>{showListTitle}</div>;
+  return <StyleListTitle>{showListTitle}</StyleListTitle>;
 };
 
 export default ListTitle;

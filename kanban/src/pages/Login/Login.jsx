@@ -3,7 +3,6 @@ import Button from "../../components/reusableComponents/Button";
 import InputField from "../../components/reusableComponents/InputField/InputField";
 import { loginUser } from "../../Context";
 import { getUrl } from "../../utility/constantsKeysAndUrl";
-import { LoginPage } from "../../components/styleComponents/Container/Login_styled";
 import {
   loginBtn,
   loginNameOrEmail,
@@ -13,10 +12,11 @@ import {
 import { numberValidate, validateNameOrEmail } from "../../utility/validation";
 import { boardRoute } from "../../utility/constantsWithRoutesAndMethods";
 import { useManageContext } from "../../Context/context";
-import { getBoardData } from "../../Context/actions";
+import { getBoardData, refreshEffect } from "../../Context/actions";
+import { StyleLoginPage } from "./StyleLogin.style.jsx";
 const Login = (props) => {
   const { state, dispatch } = useManageContext();
-  const { loading, errorMessage } = state;
+  const { loading, errorMessage, refresh } = state;
 
   const [emailOrName, setEmailOrName] = useState("");
   const [password, setPassword] = useState("");
@@ -33,6 +33,7 @@ const Login = (props) => {
     try {
       let response = await loginUser(dispatch, getUrl);
       if (!response === undefined) return;
+      refreshEffect(dispatch, !refresh);
       props.history.push(`${boardRoute}`);
     } catch (error) {
       getBoardData(dispatch, "Something goes wrong");
@@ -58,7 +59,7 @@ const Login = (props) => {
   }, [validationFunc]);
 
   return (
-    <LoginPage>
+    <StyleLoginPage>
       {errorMessage}
       <form>
         <h1>{welcomeGuest}</h1>
@@ -83,7 +84,7 @@ const Login = (props) => {
           loading={disabledBtn}
         ></Button>
       </form>
-    </LoginPage>
+    </StyleLoginPage>
   );
 };
 

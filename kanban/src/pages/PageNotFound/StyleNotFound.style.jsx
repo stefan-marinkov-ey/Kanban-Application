@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const NotFoundDiv = styled.div`
+export const StyleNotFound = styled.div`
   width: 100%;
   height: 20rem;
   margin: 0 auto;

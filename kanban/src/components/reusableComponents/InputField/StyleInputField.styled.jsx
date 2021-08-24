@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const InputStyleDiv = styled.div`
+export const StyleInputField = styled.div`
   width: 80%;
   display: flex;
   flex-direction: column;

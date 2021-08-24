@@ -1,29 +1,14 @@
-import React, { useCallback, useEffect, useState } from "react";
-import Button from "../../reusableComponents/Button";
-import { getBoardData, logoutAction, themes } from "../../../Context/actions";
+import React, { useCallback, useEffect } from "react";
+import { getBoardData } from "../../../Context/actions";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import { getBoard } from "../../../utility/constantsKeysAndUrl";
-import { HeaderStyle } from "../../styleComponents/Container/Header_style";
-import { darkMode, lightMode, logoutBtn } from "../../../utility/constantsText";
-import { loginRoute } from "../../../utility/constantsWithRoutesAndMethods";
+import { StyleHeader } from "./StyleHeader.style";
 import { useManageContext } from "../../../Context/context";
 import UserInfo from "../UserInfo";
+import HeaderButtons from "../HeaderButtons/HeaderButtons";
 const Header = (props) => {
   const { state, dispatch } = useManageContext();
   const { user, picture, nameBoard } = state;
-  const [lightText, setLightText] = useState(false);
-  const [themeColor, setThemeColor] = useState(`${darkMode}`);
-
-  const changeLabel = () => {
-    themes(dispatch, themeColor);
-    setLightText(!lightText);
-    setThemeColor(!lightText ? `${lightMode}` : `${darkMode}`);
-  };
-
-  const handleLogout = () => {
-    logoutAction(dispatch);
-    props.history.push(`${loginRoute}`);
-  };
 
   const getBoardName = useCallback(async () => {
     try {
@@ -45,26 +30,10 @@ const Header = (props) => {
   }, [getBoardName]);
 
   return (
-    <HeaderStyle>
-      <div className="headerButtons">
-        <Button
-          className="themeButton"
-          label={
-            state.user.themeToggle === `${darkMode}`
-              ? `${lightMode}`
-              : `${darkMode}`
-          }
-          type="button"
-          onClick={changeLabel}
-        />
-        <Button
-          className="logoutButton"
-          label={logoutBtn}
-          onClick={handleLogout}
-        />
-      </div>
+    <StyleHeader>
+      <HeaderButtons {...props} />
       <UserInfo user={user} picture={picture} nameBoard={nameBoard} />
-    </HeaderStyle>
+    </StyleHeader>
   );
 };
 

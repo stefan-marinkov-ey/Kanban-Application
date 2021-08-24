@@ -20,6 +20,7 @@ import {
 } from "../../../utility/constantsText";
 import { getBoardData, refreshEffect } from "../../../Context/actions";
 import { useManageContext } from "../../../Context";
+import { StyleEdit } from "./StyleEdit.style";
 
 const EditCard = ({ cardId, cardName, cardDesc, cardColor, toggle }) => {
   const { state, dispatch } = useManageContext();
@@ -75,7 +76,7 @@ const EditCard = ({ cardId, cardName, cardDesc, cardColor, toggle }) => {
   };
 
   return (
-    <div className="modalContent">
+    <StyleEdit>
       <div className="EditContent">
         <div className="editDiv">
           <h2>
@@ -105,7 +106,7 @@ const EditCard = ({ cardId, cardName, cardDesc, cardColor, toggle }) => {
           <Button label={cancelBtn} onClick={handleCancelEdit} />
         </div>
       </div>
-    </div>
+    </StyleEdit>
   );
 };
 

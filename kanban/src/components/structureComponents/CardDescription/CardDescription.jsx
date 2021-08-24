@@ -10,6 +10,7 @@ import {
   textName,
 } from "../../../utility/constantsText";
 import { useManageContext } from "../../../Context/context";
+import { StyleDescription } from "./StyleDescription.style.jsx";
 
 const CardDescription = ({
   cardDesc,
@@ -24,7 +25,7 @@ const CardDescription = ({
     toggleDesc();
   };
   return (
-    <div className="modalContent">
+    <StyleDescription>
       <div className="descriptionDiv">
         <div className="divAbout" style={elementP}>
           <h5>{cardColorText}</h5>
@@ -49,7 +50,7 @@ const CardDescription = ({
           <Button label={closeBtn} onClick={handleShowDesc} />
         </div>
       </div>
-    </div>
+    </StyleDescription>
   );
 };
 

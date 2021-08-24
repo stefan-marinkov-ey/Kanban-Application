@@ -6,12 +6,12 @@ import {
   baseTrelloUrl,
 } from "../../../utility/constantsKeysAndUrl";
 import Cards from "../Cards/Cards";
-import { ListCardsDiv } from "../../styleComponents/Container/ListCards_style";
 
 import ListTitle from "../ListTitle/ListTitle";
 import SetNewCard from "../SetNewCard/SetNewCard";
 import { getBoardData, refreshEffect } from "../../../Context/actions";
 import { useManageContext } from "../../../Context";
+import { StyleList } from "./StyleList.style";
 
 const List = ({ listName, listId }) => {
   const { state, dispatch } = useManageContext();
@@ -35,7 +35,7 @@ const List = ({ listName, listId }) => {
   }, [listId, refresh, dispatch]);
 
   useEffect(() => {
-    if (!refresh) getAllCards();
+    !refresh && getAllCards();
   }, [getAllCards, refresh]);
 
   const getMapingCards = useMemo(
@@ -59,11 +59,11 @@ const List = ({ listName, listId }) => {
   );
 
   return (
-    <ListCardsDiv>
+    <StyleList>
       <ListTitle listId={listId} listName={listName} />
       {getMapingCards}
       <SetNewCard listId={listId} />
-    </ListCardsDiv>
+    </StyleList>
   );
 };
 

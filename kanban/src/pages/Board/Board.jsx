@@ -7,9 +7,9 @@ import {
   lightTheme,
   darkTheme,
 } from "../../components/styleComponents/Theme/Themes";
-import { BoardDiv } from "../../components/styleComponents/Container/Board_style";
 import { darkMode, lightMode } from "../../utility/constantsText";
 import { useManageContext } from "../../Context/context";
+import { StyleBoard } from "./StyleBoard.style";
 
 const Board = (props) => {
   const { state } = useManageContext();
@@ -24,10 +24,10 @@ const Board = (props) => {
   return (
     <ThemeProvider theme={themeTogleClass}>
       <GlobalStyles />
-      <BoardDiv>
+      <StyleBoard>
         <Header {...props} />
         <Lists />
-      </BoardDiv>
+      </StyleBoard>
     </ThemeProvider>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { InputStyleDiv } from "../../styleComponents/Container/Input_styled";
+import { StyleInputField } from "./StyleInputField.styled";
 
 const InputField = ({
   value,
@@ -13,7 +13,7 @@ const InputField = ({
   onBlur,
 }) => {
   return (
-    <InputStyleDiv>
+    <StyleInputField>
       {label && <label>{label}</label>}
       <input
         type={type}
@@ -23,7 +23,7 @@ const InputField = ({
         name={name}
         onBlur={onBlur}
       />
-    </InputStyleDiv>
+    </StyleInputField>
   );
 };
 

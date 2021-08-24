@@ -1,14 +1,17 @@
 export const lightTheme = {
-  body: "#FFF",
-  text: "whitesmoke",
-  toggleBorder: "#FFF",
-  background: "rgb(73, 101, 159)",
-  color: "steelblue",
+  backgroundColor: "lavender",
+  textColor: "#ffffff",
+  primaryText: "steelblue",
+  primary: "steelblue",
+  gradientWhite: "rgb(253, 253, 254)",
+  gradientDark: "rgb(213, 218, 233)",
 };
+
 export const darkTheme = {
-  body: "#363537",
-  text: "#FAFAFA",
-  toggleBorder: "#6B8096",
-  background: "rgb(35, 35, 44)",
-  color: "gray",
+  backgroundColor: "#404040",
+  textColor: "whitesmoke",
+  primaryText: "whitesmoke",
+  primary: "#282828",
+  gradientDark: "#505050",
+  gradientWhite: "rgb(213, 218, 233)",
 };
