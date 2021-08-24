@@ -1,6 +1,6 @@
 import React from "react";
 import { welcome } from "../../../utility/constantsText";
-import { StyleUserInfo } from "./StyleUserInfo.style";
+import { StyleUserInfo } from "./UserInfo.style.jsx";
 
 const UserInfo = ({ nameBoard, user, picture }) => {
   return (

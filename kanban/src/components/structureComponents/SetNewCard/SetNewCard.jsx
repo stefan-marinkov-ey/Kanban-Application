@@ -14,7 +14,7 @@ import {
   newCardPlaceholder,
 } from "../../../utility/constantsText";
 import Button from "../../reusableComponents/Button";
-import { StyleSetNewCard } from "./StyleSetNewCard.style";
+import { StyleSetNewCard } from "./SetNewCard.style.jsx";
 
 const SetNewCard = ({ listId }) => {
   const { state, dispatch } = useManageContext();

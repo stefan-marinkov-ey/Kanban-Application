@@ -14,7 +14,7 @@ import {
 } from "../../../utility/constantsText";
 import { useManageContext } from "../../../Context";
 import { getBoardData, refreshEffect } from "../../../Context/actions";
-import { StyleDeleteCard } from "./StyleDeleteCard.style";
+import { StyleDeleteCard } from "./DeleteCard.style.jsx";
 
 const DeleteCard = ({ cardName, cardId, toggle }) => {
   const { state, dispatch } = useManageContext();

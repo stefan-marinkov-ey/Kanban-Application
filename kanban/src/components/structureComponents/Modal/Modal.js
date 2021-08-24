@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
-import { ModalOverlay, ModalWrapper } from "./StyleModal.style.jsx";
+import { ModalOverlay, ModalWrapper } from "./Modal.style.jsx";
 
 const Modal = ({ isShowing, hide, children }) => {
   return isShowing

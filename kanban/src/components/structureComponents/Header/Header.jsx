@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { getBoardData } from "../../../Context/actions";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import { getBoard } from "../../../utility/constantsKeysAndUrl";
-import { StyleHeader } from "./StyleHeader.style";
+import { StyleHeader } from "./Header.style.jsx";
 import { useManageContext } from "../../../Context/context";
 import UserInfo from "../UserInfo";
 import HeaderButtons from "../HeaderButtons/HeaderButtons";

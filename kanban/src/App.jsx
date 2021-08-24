@@ -7,7 +7,7 @@ import AppRoute from "./AppRoute/AppRoute";
 import Login from "./pages/Login/Login";
 import ManageContext from "./Context/context";
 import styled from "styled-components";
-import { Content } from "./components/structureComponents/ScrollButton/StyleScrollButton.style";
+import { Content } from "./components/structureComponents/ScrollButton/ScrollButton.style.jsx";
 import ScrollButton from "./components/structureComponents/ScrollButton";
 
 const getRouteMap = () => {

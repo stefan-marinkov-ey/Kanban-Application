@@ -10,7 +10,7 @@ import {
   textName,
 } from "../../../utility/constantsText";
 import { useManageContext } from "../../../Context/context";
-import { StyleDescription } from "./StyleDescription.style.jsx";
+import { StyleDescription } from "./CardDescription.style.jsx";
 
 const CardDescription = ({
   cardDesc,

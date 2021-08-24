@@ -4,7 +4,7 @@ import { useManageContext } from "../../../Context/context";
 import { darkMode, lightMode, logoutBtn } from "../../../utility/constantsText";
 import { loginRoute } from "../../../utility/constantsWithRoutesAndMethods";
 import Button from "../../reusableComponents/Button";
-import { StyleHeaderButtons } from "./StyleHeaderButtons.style";
+import { StyleHeaderButtons } from "./HeaderButtons.style.jsx";
 
 const HeaderButtons = (props) => {
   const { state, dispatch } = useManageContext();

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyledScrollButton } from "./StyleScrollButton.style.jsx";
+import { StyledScrollButton } from "./ScrollButton.style.jsx";
 
 const ScrollButton = () => {
   const [visible, setVisible] = useState(false);

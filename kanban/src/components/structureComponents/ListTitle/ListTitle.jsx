@@ -10,7 +10,7 @@ import {
 import { addBtn } from "../../../utility/constantsText";
 import Button from "../../reusableComponents/Button";
 import InputField from "../../reusableComponents/InputField/InputField";
-import { StyleListTitle } from "./StyleListTitle";
+import { StyleListTitle } from "./ListTitle.style.jsx";
 
 const ListTitle = ({ listId, listName }) => {
   const { state, dispatch } = useManageContext();

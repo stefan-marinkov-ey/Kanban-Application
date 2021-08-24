@@ -17,3 +17,4 @@ export const LOGIN_ERROR = "LOGIN_ERROR";
 export const THEMES = "THEMES";
 export const BOARD_NAME = "BOARD_NAME";
 export const REFRESH = "REFRESH";
+export const SEE_ALL = "SEE_ALL";
