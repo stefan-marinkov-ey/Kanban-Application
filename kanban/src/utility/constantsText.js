@@ -67,8 +67,7 @@ export const clickDesc = "Click for description";
 export const validMail = "Enter valid mail, please";
 export const validUsername = "Enter valid username, please";
 
-export const validPass =
-  "Password must be number and at least 5 characters long";
+export const validPass = "Password must be number and at least 5 digits long";
 export const required = "Required";
 
 export const notFound = "Page Doesn't Exist";

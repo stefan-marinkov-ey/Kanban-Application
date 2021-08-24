@@ -72,7 +72,7 @@ const EditCard = ({ cardId, cardName, cardDesc, cardColor, toggle }) => {
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
-        value: "Something goes wrong",
+        value: "Something went wrong, refresh the page",
       });
     }
 
@@ -95,7 +95,7 @@ const EditCard = ({ cardId, cardName, cardDesc, cardColor, toggle }) => {
         ></span>
       );
     });
-
+  const preventNullShowing = cardEditColor || "";
   return (
     <StyleEdit>
       <div className="EditContent">
@@ -115,7 +115,7 @@ const EditCard = ({ cardId, cardName, cardDesc, cardColor, toggle }) => {
           />
           <p>
             {`${chosenColor}
-            ${cardEditColor}`}
+            ${preventNullShowing}`}
           </p>
           <div className="checkboxes">{chooseColor()}</div>
         </div>

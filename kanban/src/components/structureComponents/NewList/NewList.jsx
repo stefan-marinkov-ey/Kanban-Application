@@ -29,13 +29,13 @@ const NewList = ({ toggle }) => {
   const handleListName = async () => {
     try {
       await httpRequest({
-        method: `post`,
+        method: "post",
         url: `${baseTrelloUrl}lists?key=${apiKey}&token=${apiToken}&name=${listName}&idBoard=61152cf60660483f28f5ffda`,
       });
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
-        value: "Something goes wrong",
+        value: "Something went wrong, refresh the page",
       });
     }
 

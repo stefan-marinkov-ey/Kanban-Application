@@ -37,7 +37,7 @@ const Login = (props) => {
       props.history.push(`${boardRoute}`);
       window.location.reload();
     } catch (error) {
-      getBoardData(dispatch, "Something goes wrong");
+      getBoardData(dispatch, "Something went wrong, refresh the page");
     }
   };
 

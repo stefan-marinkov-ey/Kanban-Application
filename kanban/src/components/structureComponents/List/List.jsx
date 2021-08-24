@@ -15,7 +15,7 @@ import { StyleList } from "./List.style.jsx";
 
 const List = ({ listName, listId }) => {
   const { state, dispatch } = useManageContext();
-  const { refresh } = state;
+  const { refresh, errorMessage } = state;
   const [cards, setCards] = useState([]);
 
   const getAllCards = useCallback(async () => {
@@ -29,7 +29,7 @@ const List = ({ listName, listId }) => {
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
-        value: "Something goes wrong",
+        value: "Something went wrong, refresh the page",
       });
     }
   }, [listId, refresh, dispatch]);
@@ -58,8 +58,11 @@ const List = ({ listName, listId }) => {
     [cards, listName]
   );
 
+  const errorMessageForDisplay = errorMessage ? <h2>{errorMessage}</h2> : null;
+
   return (
     <StyleList>
+      {errorMessageForDisplay}
       <ListTitle listId={listId} listName={listName} />
       {getMapingCards}
       <SetNewCard listId={listId} />

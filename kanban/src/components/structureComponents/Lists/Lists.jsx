@@ -23,7 +23,7 @@ import { StyleLists } from "./Lists.style.jsx";
 
 const Lists = () => {
   const { state, dispatch } = useManageContext();
-  const { refresh, seeAll } = state;
+  const { refresh, seeAll, errorMessage } = state;
   const { isShowing, toggle } = useModal();
   const [lists, setLists] = useState([]);
 
@@ -39,7 +39,7 @@ const Lists = () => {
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
-        value: "Something goes wrong",
+        value: "Something went wrong, refresh the page",
       });
     }
   }, [refresh, dispatch]);
@@ -62,9 +62,10 @@ const Lists = () => {
 
     [lists, seeAll]
   );
-
+  const errorMessageForDisplay = errorMessage ? <h2>{errorMessage}</h2> : null;
   return (
     <StyleLists>
+      {errorMessageForDisplay}
       <div className="listsContent">
         <span>{listsText}</span>
         <Button
