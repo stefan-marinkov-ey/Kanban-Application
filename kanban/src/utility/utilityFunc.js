@@ -13,7 +13,6 @@ export const makeLighterColor = (colorChange) => {
         (colorChange === "black" && "#3b444b") ||
         (colorChange === "pink" && "hotpink")
       }`,
-      color: "white",
       fontWeight: "bold",
     };
 };

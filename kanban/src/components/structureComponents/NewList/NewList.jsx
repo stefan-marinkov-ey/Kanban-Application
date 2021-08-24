@@ -32,6 +32,7 @@ const NewList = ({ toggle }) => {
         method: "post",
         url: `${baseTrelloUrl}lists?key=${apiKey}&token=${apiToken}&name=${listName}&idBoard=61152cf60660483f28f5ffda`,
       });
+      refreshEffect(dispatch, !refresh);
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
@@ -39,7 +40,6 @@ const NewList = ({ toggle }) => {
       });
     }
 
-    refreshEffect(dispatch, !refresh);
     toggle();
   };
   const handleCancelEdit = () => {
