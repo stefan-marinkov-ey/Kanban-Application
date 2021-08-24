@@ -1,9 +1,9 @@
 import React from "react";
 import Button from "../../components/reusableComponents/Button";
-import { NotFoundDiv } from "../../components/styleComponents/Container/Not_Found";
 import { logoutAction, useManageContext } from "../../Context";
 import { backToLogin, notFound } from "../../utility/constantsText";
 import { loginRoute } from "../../utility/constantsWithRoutesAndMethods";
+import { StyleNotFound } from "./StyleNotFound.style.jsx";
 
 const PageNotFound = (props) => {
   const { dispatch } = useManageContext();
@@ -12,10 +12,10 @@ const PageNotFound = (props) => {
     props.history.push(`${loginRoute}`);
   };
   return (
-    <NotFoundDiv>
+    <StyleNotFound>
       <h1>{notFound}</h1>
       <Button label={backToLogin} onClick={handleBack} />
-    </NotFoundDiv>
+    </StyleNotFound>
   );
 };
 

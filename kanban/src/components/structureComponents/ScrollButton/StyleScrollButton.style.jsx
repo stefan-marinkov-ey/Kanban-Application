@@ -15,6 +15,4 @@ export const StyledScrollButton = styled.div`
   font-size: 3rem;
   z-index: 1;
   cursor: pointer;
-  color: whitesmoke;
-  background: steelblue;
 `;

@@ -8,7 +8,7 @@ export const StyleDescription = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    color: ${(props) => props.theme.background};
+
     & > .divAbout {
       width: 100%;
       height: 4rem;
@@ -20,7 +20,7 @@ export const StyleDescription = styled.div`
       padding-left: 5%;
       box-shadow: inset 0.5px 0.5px 0.5px 1px lightgray;
       overflow: hidden;
-      background: linear-gradient(rgb(253, 253, 254), rgb(213, 218, 233));
+      color: ${(props) => props.theme.primaryText};
     }
     .divBtnHolder {
       display: flex;
@@ -33,7 +33,6 @@ export const StyleDescription = styled.div`
       > button {
         width: 40%;
         margin: 0;
-        background: ${(props) => props.theme.background};
         color: whitesmoke;
       }
     }

@@ -4,15 +4,14 @@ export const StyleCards = styled.div`
   width: 90%;
   margin: 0 auto;
   margin-bottom: 5%;
+  color: ${(props) => props.theme.textColor};
   .holder {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    button {
+    Button {
       width: 10%;
       height: 2rem;
-      background: steelblue;
-      color: whitesmoke;
       margin-bottom: auto;
     }
   }

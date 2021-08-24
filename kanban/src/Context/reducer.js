@@ -29,7 +29,7 @@ export const initialState = {
   errorMessage: null,
   themeToggle: themeToggle,
   nameBoard: "",
-  refresh: false,
+  refresh: true,
 };
 
 export const AuthReducer = (initialState, action) => {

@@ -8,5 +8,11 @@ export const StyleBoard = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(rgb(253, 253, 254), rgb(213, 218, 233));
+  color: ${(props) => props.theme.textColor};
+  background: ${(props) =>
+    `  linear-gradient(
+      ${props.theme.gradientWhite},
+    ${props.theme.gradientDark} 70%
+    
+  )`};
 `;

@@ -10,6 +10,7 @@ export const StyleHeaderButtons = styled.div`
     width: 25%;
     margin-left: 0;
     height: 1rem;
+
     @media (max-width: 600px) {
       width: 40%;
       height: 1rem;

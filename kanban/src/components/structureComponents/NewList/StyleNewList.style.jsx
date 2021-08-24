@@ -7,7 +7,7 @@ export const StyleNewList = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.primaryText};
 
   .middleDiv {
     width: 100%;
@@ -21,30 +21,24 @@ export const StyleNewList = styled.div`
       justify-content: center;
       align-items: center;
       > h3 {
-        color: ${(props) => props.theme.background};
         @media (max-width: 500px) {
           font-size: medium;
         }
       }
-      
     }
+  }
+  .addEndClose {
+    width: 80%;
+    height: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button {
+      width: 30%;
+
+      @media (max-width: 500px) {
+        font-size: smaller;
+      }
     }
-  }.addEndClose {
-        width: 80%;
-        height: 2.5rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        button {
-          width: 30%;
-          &:hover {
-          opacity: 1;
-          background: ${(props) => props.theme.background};
-          color: ${(props) => props.theme.color};
-        }
-        @media (max-width: 500px) {
-          font-size: smaller;
-        }
-        }
-       
+  }
 `;

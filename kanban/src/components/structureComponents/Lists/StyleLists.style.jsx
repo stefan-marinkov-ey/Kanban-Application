@@ -6,7 +6,7 @@ export const StyleLists = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.primaryText};
 
   .listsContent {
     width: 100%;

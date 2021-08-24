@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const StyleCardHolder = styled.div`
   width: 85%;
+  color: ${(props) => props.theme.primaryText};
   .cardFunc {
     width: 95%;
     height: 2rem;
@@ -10,6 +11,7 @@ export const StyleCardHolder = styled.div`
     justify-content: space-between;
     padding: 0 5%;
     font-weight: bolder;
+    box-shadow: 0.5px 0.5px 0.5px 0.5px ${(props) => props.theme.primaryText};
     span {
       visibility: hidden;
     }
@@ -17,7 +19,6 @@ export const StyleCardHolder = styled.div`
   .cardDesc {
     width: 95%;
     height: 2rem;
-    border-bottom: 3px solid lavender;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -29,6 +30,8 @@ export const StyleCardHolder = styled.div`
   p:hover {
     cursor: pointer;
     opacity: 0.8;
+    background: ${(props) => props.theme.backgroundColor};
+    transition: all 0.5s ease-in;
     span {
       visibility: visible;
     }

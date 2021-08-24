@@ -37,11 +37,11 @@ const DeleteCard = ({ cardName, cardId, toggle }) => {
   return (
     <StyleDeleteCard>
       <div className="question">
-        <h2>
-          {`${deletingCard}
-          ${cardName}
+        <h3>
+          {`${deletingCard}  
+          --${cardName}--  
           ${deletingCardName}`}
-        </h2>
+        </h3>
       </div>
 
       <div className="buttonHolderDelete">

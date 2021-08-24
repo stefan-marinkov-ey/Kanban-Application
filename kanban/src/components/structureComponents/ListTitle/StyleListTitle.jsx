@@ -10,6 +10,8 @@ export const StyleListTitle = styled.div`
   border-radius: 5px 5px 0 0;
   border-bottom: 3px solid lavender;
   margin-bottom: 2%;
+  color: ${(props) => props.theme.primaryText};
+  background: ${(props) => props.theme.backgroundColor};
   h4 {
     font-weight: bolder;
   }

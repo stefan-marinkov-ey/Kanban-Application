@@ -6,6 +6,8 @@ export const StyleDeleteCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: ${(props) => props.theme.primaryText};
+
   .question {
     width: 80%;
     margin: 0 auto;

@@ -6,6 +6,6 @@ export const StyleHeader = styled.div`
   justify-content: space-evenly;
   flex-direction: column;
   height: 10rem;
-  background: ${(props) => props.theme.background};
-  color: whitesmoke;
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.primary};
 `;

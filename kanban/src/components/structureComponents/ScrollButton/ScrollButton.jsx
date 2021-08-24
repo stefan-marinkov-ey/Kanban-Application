@@ -22,11 +22,8 @@ const ScrollButton = () => {
   window.addEventListener("scroll", toggleVisible);
 
   return (
-    <StyledScrollButton style={{ background: visible ? "steelblue" : "none" }}>
-      <span
-        onClick={scrollToTop}
-        style={{ display: visible ? "inline" : "none" }}
-      >
+    <StyledScrollButton style={{ visibility: !visible && "hidden" }}>
+      <span onClick={scrollToTop} style={{ visibility: !visible && "hidden" }}>
         ^
       </span>
     </StyledScrollButton>

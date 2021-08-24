@@ -23,7 +23,13 @@ export const ModalWrapper = styled.div`
 
   .modal {
     z-index: 100;
-    background: linear-gradient(rgb(253, 253, 254), rgb(213, 218, 233));
+    color: ${(props) => props.theme.textColor};
+    background: ${(props) =>
+      `  linear-gradient(
+      ${props.theme.gradientWhite},
+    ${props.theme.gradientDark} 70%
+    
+  )`};
     position: relative;
     margin: 5rem auto;
     border-radius: 3px;

@@ -7,8 +7,8 @@ export const GlobalStyles = createGlobalStyle`
     font-family: "Roboto", Arial, Helvetica, sans-serif;
   }
   body {
-    background: ${({ theme }) => theme.body};
-    color: ${({ theme }) => theme.text};
+    color: ${(props) => props.theme.textColor};
+  background-color: ${(props) => props.theme.primary};
     transition: all 0.50s linear;
 
   text-align: center;
