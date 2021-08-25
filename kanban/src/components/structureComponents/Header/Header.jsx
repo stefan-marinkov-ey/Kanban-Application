@@ -6,6 +6,7 @@ import { StyleHeader } from "./Header.style.jsx";
 import { useManageContext } from "../../../Context/context";
 import UserInfo from "../UserInfo";
 import HeaderButtons from "../HeaderButtons/HeaderButtons";
+import { errorResponse } from "../../../utility/constantsText";
 const Header = (props) => {
   const { state, dispatch } = useManageContext();
   const { user, picture, nameBoard, errorMessage } = state;
@@ -20,7 +21,7 @@ const Header = (props) => {
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
-        value: "Something went wrong, refresh the page",
+        value: errorResponse,
       });
     }
   }, [dispatch]);

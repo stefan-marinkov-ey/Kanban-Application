@@ -79,3 +79,7 @@ export const requiredField = "Required field";
 export const chosenColor = "Choose color of the card - ";
 
 export const twoSlash = " -- ";
+
+export const errorName = "errorMessage";
+
+export const errorResponse = "Something went wrong, refresh the page";

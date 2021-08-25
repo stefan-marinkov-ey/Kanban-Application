@@ -7,7 +7,7 @@ import {
   apiToken,
   baseTrelloUrl,
 } from "../../../utility/constantsKeysAndUrl";
-import { addBtn } from "../../../utility/constantsText";
+import { addBtn, errorResponse } from "../../../utility/constantsText";
 import Button from "../../reusableComponents/Button";
 import InputField from "../../reusableComponents/InputField/InputField";
 import { StyleListTitle } from "./ListTitle.style.jsx";
@@ -36,7 +36,7 @@ const ListTitle = ({ listId, listName }) => {
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
-        value: "Something went wrong, refresh the page",
+        value: errorResponse,
       });
     }
 

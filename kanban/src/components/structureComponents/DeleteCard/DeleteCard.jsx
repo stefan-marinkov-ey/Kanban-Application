@@ -11,6 +11,7 @@ import {
   deleteBtn,
   deletingCard,
   deletingCardName,
+  errorResponse,
   twoSlash,
 } from "../../../utility/constantsText";
 import { useManageContext } from "../../../Context";
@@ -32,7 +33,7 @@ const DeleteCard = ({ cardName, cardId, toggle }) => {
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
-        value: "Something went wrong, refresh the page",
+        value: errorResponse,
       });
     }
   };
