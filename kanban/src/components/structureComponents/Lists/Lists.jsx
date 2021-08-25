@@ -26,50 +26,55 @@ import {
 } from "../../../Context/actions";
 import Loading from "../Loading";
 import { StyleLists } from "./Lists.style.jsx";
-import debounce from "lodash.debounce";
 
 const Lists = () => {
-  const mountRef = useRef(true);
+  const mountedRef = useRef(true);
   const { state, dispatch } = useManageContext();
   const { refresh, seeAll, errorMessage } = state;
   const { isShowing, toggle } = useModal();
   const [lists, setLists] = useState([]);
 
-  const handleSeeAll = debounce(() => {
+  const handleSeeAll = () => {
     seeAllLists(dispatch, !seeAll);
-    refreshEffect(dispatch, !refresh);
-  }, 700);
+  };
 
   const getAllLists = useCallback(async () => {
     try {
       let response = await httpRequest(getLists);
-      !refresh && setLists(response.responseData.data);
-      if (!mountRef.current) return null;
+      setLists(response.responseData.data);
+      if (!mountedRef.current) return null;
+      refreshEffect(dispatch, !refresh);
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
         value: "Something went wrong, refresh the page",
       });
     }
-  }, [refresh, dispatch]);
+  }, [dispatch, refresh]);
 
   useEffect(() => {
-    getAllLists();
+    !refresh && getAllLists();
+
     return () => {
-      mountRef.current = false;
+      refreshEffect(dispatch, true);
+      mountedRef.current = false;
     };
-  }, [getAllLists]);
+  }, [getAllLists, refresh, dispatch]);
 
   const getListsAll = useMemo(
     () =>
       !lists.length ? (
         <Loading />
-      ) : (
+      ) : !seeAll ? (
         lists
           .filter((list, index) => (!seeAll ? index < 3 : list))
           .map((list) => {
             return <List key={list.id} listName={list.name} listId={list.id} />;
           })
+      ) : (
+        lists.map((list) => {
+          return <List key={list.id} listName={list.name} listId={list.id} />;
+        })
       ),
 
     [lists, seeAll]

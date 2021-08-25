@@ -16,7 +16,6 @@ import {
 import { useManageContext } from "../../../Context";
 import { getBoardData, refreshEffect } from "../../../Context/actions";
 import { StyleDeleteCard } from "./DeleteCard.style.jsx";
-import debounce from "lodash.debounce";
 
 const DeleteCard = ({ cardName, cardId, toggle }) => {
   const { state, dispatch } = useManageContext();
@@ -24,6 +23,7 @@ const DeleteCard = ({ cardName, cardId, toggle }) => {
 
   const deleteMethod = async () => {
     try {
+      await toggle();
       await httpRequest({
         method: "delete",
         url: `${baseTrelloUrl}cards/${cardId}?key=${apiKey}&token=${apiToken}`,
@@ -37,10 +37,6 @@ const DeleteCard = ({ cardName, cardId, toggle }) => {
     }
   };
 
-  const handleDelete = debounce(() => {
-    deleteMethod();
-  }, 300);
-
   return (
     <StyleDeleteCard>
       <div className="question">
@@ -52,7 +48,7 @@ const DeleteCard = ({ cardName, cardId, toggle }) => {
       </div>
 
       <div className="buttonHolderDelete">
-        <Button label={deleteBtn} onClick={handleDelete} />
+        <Button label={deleteBtn} onClick={deleteMethod} />
         <Button label={cancelBtn} onClick={() => toggle()} />
       </div>
     </StyleDeleteCard>

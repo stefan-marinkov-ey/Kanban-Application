@@ -14,6 +14,7 @@ export const StyleListTitle = styled.div`
   background: ${(props) => props.theme.backgroundColor};
   h4 {
     font-weight: bolder;
+    padding: 1%;
   }
   .titleChange {
     width: 100%;

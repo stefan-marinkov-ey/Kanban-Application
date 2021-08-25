@@ -56,6 +56,7 @@ const EditCard = ({ cardId, cardName, cardDesc, cardColor, toggle }) => {
 
   const handleEditCardFields = async () => {
     try {
+      await toggle();
       await httpRequest({
         method: "put",
         url: `${baseTrelloUrl}cards/${cardId}?key=${apiKey}&token=${apiToken}`,
@@ -77,7 +78,6 @@ const EditCard = ({ cardId, cardName, cardDesc, cardColor, toggle }) => {
     }
 
     refreshEffect(dispatch, !refresh);
-    toggle();
   };
 
   const chooseColor = () =>

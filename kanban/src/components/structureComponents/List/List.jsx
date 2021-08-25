@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import {
   apiKey,
@@ -15,15 +9,13 @@ import Cards from "../Cards/Cards";
 
 import ListTitle from "../ListTitle/ListTitle";
 import SetNewCard from "../SetNewCard/SetNewCard";
-import { getBoardData, refreshEffect } from "../../../Context/actions";
+import { getBoardData } from "../../../Context/actions";
 import { useManageContext } from "../../../Context";
 import { StyleList } from "./List.style.jsx";
-import debounce from "lodash.debounce";
 
 const List = ({ listName, listId }) => {
-  const mountedRef = useRef(true);
   const { state, dispatch } = useManageContext();
-  const { refresh, errorMessage } = state;
+  const { errorMessage, refresh } = state;
   const [cards, setCards] = useState([]);
 
   const getAllCards = useCallback(async () => {
@@ -33,26 +25,20 @@ const List = ({ listName, listId }) => {
         url: `${baseTrelloUrl}lists/${listId}/cards?key=${apiKey}&token=${apiToken}`,
       });
 
-      if (response.responseData.data) setCards(response.responseData.data);
-      if (!mountedRef.current) return null;
-      refreshEffect(dispatch, !refresh);
+      if (response.responseData.data) {
+        setCards(response.responseData.data);
+      }
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
         value: "Something went wrong, refresh the page",
       });
     }
-  }, [listId, refresh, dispatch, mountedRef]);
-
-  const getCardsRefresh = debounce(getAllCards, 200);
+  }, [listId, dispatch]);
 
   useEffect(() => {
-    getCardsRefresh();
-    return () => {
-      mountedRef.current = false;
-      getCardsRefresh.cancel();
-    };
-  }, [getCardsRefresh]);
+    !refresh && getAllCards();
+  }, [getAllCards, refresh]);
 
   const getMapingCards = useMemo(
     () =>

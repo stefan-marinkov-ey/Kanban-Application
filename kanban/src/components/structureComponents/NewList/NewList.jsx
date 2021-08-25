@@ -28,19 +28,19 @@ const NewList = ({ toggle }) => {
 
   const handleListName = async () => {
     try {
-      await httpRequest({
+      await toggle();
+
+      const res = await httpRequest({
         method: "post",
         url: `${baseTrelloUrl}lists?key=${apiKey}&token=${apiToken}&name=${listName}&idBoard=61152cf60660483f28f5ffda`,
       });
-      refreshEffect(dispatch, !refresh);
+      if (res) refreshEffect(dispatch, !refresh);
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
         value: "Something went wrong, refresh the page",
       });
     }
-
-    toggle();
   };
   const handleCancelEdit = () => {
     setListName("");
