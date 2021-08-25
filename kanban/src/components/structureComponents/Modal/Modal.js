@@ -2,8 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 import { ModalOverlay, ModalWrapper } from "./Modal.style.jsx";
+import { useManageContext } from "../../../Context/context.js";
 
 const Modal = ({ isShowing, hide, children }) => {
+  const { state } = useManageContext();
+  const { errorMessage } = state;
+  const errorMessageForDisplay = errorMessage ? <h2>{errorMessage}</h2> : null;
   return isShowing
     ? createPortal(
         <>
@@ -11,6 +15,7 @@ const Modal = ({ isShowing, hide, children }) => {
           <ModalWrapper aria-modal aria-hidden tabIndex={-1} role="dialog">
             <div className="modal">
               <div className="modal-header">
+                {errorMessageForDisplay}
                 <button
                   type="button"
                   className="modal-close-button"

@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import { getLists } from "../../../utility/constantsKeysAndUrl";
 import List from "../List/List";
@@ -22,49 +28,61 @@ import Loading from "../Loading";
 import { StyleLists } from "./Lists.style.jsx";
 
 const Lists = () => {
+  const mountedRef = useRef(true);
   const { state, dispatch } = useManageContext();
-  const { refresh, seeAll } = state;
+  const { refresh, seeAll, errorMessage } = state;
   const { isShowing, toggle } = useModal();
   const [lists, setLists] = useState([]);
 
   const handleSeeAll = () => {
     seeAllLists(dispatch, !seeAll);
-    refreshEffect(dispatch, !refresh);
   };
 
   const getAllLists = useCallback(async () => {
     try {
       let response = await httpRequest(getLists);
-      !refresh && setLists(response.responseData.data);
+      setLists(response.responseData.data);
+      if (!mountedRef.current) return null;
+      refreshEffect(dispatch, !refresh);
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
-        value: "Something goes wrong",
+        value: "Something went wrong, refresh the page",
       });
     }
-  }, [refresh, dispatch]);
+  }, [dispatch, refresh]);
 
   useEffect(() => {
-    getAllLists();
-  }, [getAllLists]);
+    !refresh && getAllLists();
+
+    return () => {
+      refreshEffect(dispatch, true);
+      mountedRef.current = false;
+    };
+  }, [getAllLists, refresh, dispatch]);
 
   const getListsAll = useMemo(
     () =>
       !lists.length ? (
         <Loading />
-      ) : (
+      ) : !seeAll ? (
         lists
           .filter((list, index) => (!seeAll ? index < 3 : list))
           .map((list) => {
             return <List key={list.id} listName={list.name} listId={list.id} />;
           })
+      ) : (
+        lists.map((list) => {
+          return <List key={list.id} listName={list.name} listId={list.id} />;
+        })
       ),
 
     [lists, seeAll]
   );
-
+  const errorMessageForDisplay = errorMessage ? <h2>{errorMessage}</h2> : null;
   return (
     <StyleLists>
+      {errorMessageForDisplay}
       <div className="listsContent">
         <span>{listsText}</span>
         <Button

@@ -8,6 +8,8 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "axios-hooks": "^2.6.3",
+    "axios-throttle": "^1.0.2",
+    "lodash.debounce": "^4.0.8",
     "node-sass": "^6.0.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",

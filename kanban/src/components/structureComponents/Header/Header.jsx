@@ -8,7 +8,7 @@ import UserInfo from "../UserInfo";
 import HeaderButtons from "../HeaderButtons/HeaderButtons";
 const Header = (props) => {
   const { state, dispatch } = useManageContext();
-  const { user, picture, nameBoard } = state;
+  const { user, picture, nameBoard, errorMessage } = state;
 
   const getBoardName = useCallback(async () => {
     try {
@@ -20,7 +20,7 @@ const Header = (props) => {
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
-        value: "Something goes wrong",
+        value: "Something went wrong, refresh the page",
       });
     }
   }, [dispatch]);
@@ -28,9 +28,11 @@ const Header = (props) => {
   useEffect(() => {
     getBoardName();
   }, [getBoardName]);
+  const errorMessageForDisplay = errorMessage ? <h2>{errorMessage}</h2> : null;
 
   return (
     <StyleHeader>
+      {errorMessageForDisplay}
       <HeaderButtons {...props} />
       <UserInfo user={user} picture={picture} nameBoard={nameBoard} />
     </StyleHeader>

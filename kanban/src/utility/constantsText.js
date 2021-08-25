@@ -60,15 +60,14 @@ export const darkMode = "Dark Mode";
 
 export const lightMode = "Light Mode";
 
-export const threeDots = "...";
+export const threeDots = ". . .";
 
 export const clickDesc = "Click for description";
 
 export const validMail = "Enter valid mail, please";
 export const validUsername = "Enter valid username, please";
 
-export const validPass =
-  "Password must be number and at least 5 characters long";
+export const validPass = "Password must be number and at least 5 digits long";
 export const required = "Required";
 
 export const notFound = "Page Doesn't Exist";
@@ -78,3 +77,5 @@ export const backToLogin = "Back to login";
 export const requiredField = "Required field";
 
 export const chosenColor = "Choose color of the card - ";
+
+export const twoSlash = " -- ";

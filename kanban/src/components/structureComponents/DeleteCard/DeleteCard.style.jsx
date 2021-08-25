@@ -11,7 +11,7 @@ export const StyleDeleteCard = styled.div`
   .question {
     width: 80%;
     margin: 0 auto;
-    color: steelblue;
+    color: ${(props) => props.theme.primaryText};
   }
   .buttonHolderDelete {
     width: 80%;

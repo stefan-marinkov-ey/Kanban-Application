@@ -34,7 +34,7 @@ InputField.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string,
   validation: PropTypes.array,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   onBlur: PropTypes.func,
 };
 
@@ -45,6 +45,7 @@ InputField.defaultProps = {
   placeholder: "",
   type: "text",
   validation: [],
+  onChange: () => {},
   onBlur: () => {},
 };
 

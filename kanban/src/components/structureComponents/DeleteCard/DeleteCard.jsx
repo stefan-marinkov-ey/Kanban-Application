@@ -11,6 +11,7 @@ import {
   deleteBtn,
   deletingCard,
   deletingCardName,
+  twoSlash,
 } from "../../../utility/constantsText";
 import { useManageContext } from "../../../Context";
 import { getBoardData, refreshEffect } from "../../../Context/actions";
@@ -19,8 +20,10 @@ import { StyleDeleteCard } from "./DeleteCard.style.jsx";
 const DeleteCard = ({ cardName, cardId, toggle }) => {
   const { state, dispatch } = useManageContext();
   const { refresh } = state;
-  const handleDelete = async () => {
+
+  const deleteMethod = async () => {
     try {
+      await toggle();
       await httpRequest({
         method: "delete",
         url: `${baseTrelloUrl}cards/${cardId}?key=${apiKey}&token=${apiToken}`,
@@ -29,7 +32,7 @@ const DeleteCard = ({ cardName, cardId, toggle }) => {
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
-        value: "Something goes wrong",
+        value: "Something went wrong, refresh the page",
       });
     }
   };
@@ -39,13 +42,13 @@ const DeleteCard = ({ cardName, cardId, toggle }) => {
       <div className="question">
         <h3>
           {`${deletingCard}  
-          --${cardName}--  
+          ${twoSlash} ${cardName}${twoSlash} 
           ${deletingCardName}`}
         </h3>
       </div>
 
       <div className="buttonHolderDelete">
-        <Button label={deleteBtn} onClick={handleDelete} />
+        <Button label={deleteBtn} onClick={deleteMethod} />
         <Button label={cancelBtn} onClick={() => toggle()} />
       </div>
     </StyleDeleteCard>

@@ -9,13 +9,13 @@ import Cards from "../Cards/Cards";
 
 import ListTitle from "../ListTitle/ListTitle";
 import SetNewCard from "../SetNewCard/SetNewCard";
-import { getBoardData, refreshEffect } from "../../../Context/actions";
+import { getBoardData } from "../../../Context/actions";
 import { useManageContext } from "../../../Context";
 import { StyleList } from "./List.style.jsx";
 
 const List = ({ listName, listId }) => {
   const { state, dispatch } = useManageContext();
-  const { refresh } = state;
+  const { errorMessage, refresh } = state;
   const [cards, setCards] = useState([]);
 
   const getAllCards = useCallback(async () => {
@@ -24,15 +24,17 @@ const List = ({ listName, listId }) => {
         method: "get",
         url: `${baseTrelloUrl}lists/${listId}/cards?key=${apiKey}&token=${apiToken}`,
       });
-      refreshEffect(dispatch, !refresh);
-      if (response.responseData.data) setCards(response.responseData.data);
+
+      if (response.responseData.data) {
+        setCards(response.responseData.data);
+      }
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
-        value: "Something goes wrong",
+        value: "Something went wrong, refresh the page",
       });
     }
-  }, [listId, refresh, dispatch]);
+  }, [listId, dispatch]);
 
   useEffect(() => {
     !refresh && getAllCards();
@@ -58,8 +60,11 @@ const List = ({ listName, listId }) => {
     [cards, listName]
   );
 
+  const errorMessageForDisplay = errorMessage ? <h2>{errorMessage}</h2> : null;
+
   return (
     <StyleList>
+      {errorMessageForDisplay}
       <ListTitle listId={listId} listName={listName} />
       {getMapingCards}
       <SetNewCard listId={listId} />
