@@ -15,6 +15,7 @@ import {
   chosenColor,
   editCard,
   editCardName,
+  errorResponse,
   nameForCard,
 } from "../../../utility/constantsText";
 import { getBoardData, refreshEffect } from "../../../Context/actions";
@@ -73,7 +74,7 @@ const EditCard = ({ cardId, cardName, cardDesc, cardColor, toggle }) => {
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
-        value: "Something went wrong, refresh the page",
+        value: errorResponse,
       });
     }
 

@@ -12,6 +12,7 @@ import SetNewCard from "../SetNewCard/SetNewCard";
 import { getBoardData } from "../../../Context/actions";
 import { useManageContext } from "../../../Context";
 import { StyleList } from "./List.style.jsx";
+import { errorResponse } from "../../../utility/constantsText";
 
 const List = ({ listName, listId }) => {
   const { state, dispatch } = useManageContext();
@@ -31,7 +32,7 @@ const List = ({ listName, listId }) => {
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
-        value: "Something went wrong, refresh the page",
+        value: errorResponse,
       });
     }
   }, [listId, dispatch]);

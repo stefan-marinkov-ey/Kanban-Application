@@ -1,16 +1,11 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-  useRef,
-} from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import { getLists } from "../../../utility/constantsKeysAndUrl";
 import List from "../List/List";
 import Button from "../../reusableComponents/Button";
 import {
   creatingNewList,
+  errorResponse,
   listsText,
   seeAllCards,
   showLess,
@@ -28,7 +23,6 @@ import Loading from "../Loading";
 import { StyleLists } from "./Lists.style.jsx";
 
 const Lists = () => {
-  const mountedRef = useRef(true);
   const { state, dispatch } = useManageContext();
   const { refresh, seeAll, errorMessage } = state;
   const { isShowing, toggle } = useModal();
@@ -36,18 +30,19 @@ const Lists = () => {
 
   const handleSeeAll = () => {
     seeAllLists(dispatch, !seeAll);
+    refreshEffect(dispatch, !refresh);
   };
 
   const getAllLists = useCallback(async () => {
     try {
-      let response = await httpRequest(getLists);
-      setLists(response.responseData.data);
-      if (!mountedRef.current) return null;
-      refreshEffect(dispatch, !refresh);
+      let res = await httpRequest(getLists);
+      setLists(res.responseData.data);
+
+      if (res) refreshEffect(dispatch, !refresh);
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
-        value: "Something went wrong, refresh the page",
+        value: errorResponse,
       });
     }
   }, [dispatch, refresh]);
@@ -57,7 +52,6 @@ const Lists = () => {
 
     return () => {
       refreshEffect(dispatch, true);
-      mountedRef.current = false;
     };
   }, [getAllLists, refresh, dispatch]);
 

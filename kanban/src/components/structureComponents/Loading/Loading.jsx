@@ -1,16 +1,8 @@
 import React from "react";
-import styled from "styled-components";
-
-const LoadingDiv = styled.div`
-  width: 300px;
-  height: 300px;
-  font-weight: bold;
-  font-size: 3rem;
-  margin: auto;
-`;
+import { StyleLoading } from "./Loading.style";
 
 const Loading = () => {
-  return <LoadingDiv>LOADING</LoadingDiv>;
+  return <StyleLoading>LOADING</StyleLoading>;
 };
 
 export default Loading;

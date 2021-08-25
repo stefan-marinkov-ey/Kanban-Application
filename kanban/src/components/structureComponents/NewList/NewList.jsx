@@ -11,6 +11,7 @@ import {
   addBtn,
   cancelBtn,
   creatingNewList,
+  errorResponse,
 } from "../../../utility/constantsText";
 import { useManageContext } from "../../../Context";
 import { getBoardData, refreshEffect } from "../../../Context/actions";
@@ -38,7 +39,7 @@ const NewList = ({ toggle }) => {
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
-        value: "Something went wrong, refresh the page",
+        value: errorResponse,
       });
     }
   };

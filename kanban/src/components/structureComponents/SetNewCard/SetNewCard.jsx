@@ -11,6 +11,7 @@ import {
   addBtn,
   cancelBtn,
   cardTitle,
+  errorResponse,
   newCardPlaceholder,
 } from "../../../utility/constantsText";
 import Button from "../../reusableComponents/Button";
@@ -47,7 +48,7 @@ const SetNewCard = ({ listId }) => {
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",
-        value: "Something went wrong, refresh the page",
+        value: errorResponse,
       });
     }
 

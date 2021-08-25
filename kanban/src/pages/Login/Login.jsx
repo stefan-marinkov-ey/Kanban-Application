@@ -4,6 +4,7 @@ import InputField from "../../components/reusableComponents/InputField/InputFiel
 import { loginUser } from "../../Context";
 import { getUrl } from "../../utility/constantsKeysAndUrl";
 import {
+  errorResponse,
   loginBtn,
   loginNameOrEmail,
   loginPassword,
@@ -37,7 +38,7 @@ const Login = (props) => {
       props.history.push(`${boardRoute}`);
       window.location.reload();
     } catch (error) {
-      getBoardData(dispatch, "Something went wrong, refresh the page");
+      getBoardData(dispatch, errorResponse);
     }
   };
 
