@@ -26,6 +26,7 @@ import {
 } from "../../../Context/actions";
 import Loading from "../Loading";
 import { StyleLists } from "./Lists.style.jsx";
+import debounce from "lodash.debounce";
 
 const Lists = () => {
   const mountRef = useRef(true);
@@ -34,17 +35,16 @@ const Lists = () => {
   const { isShowing, toggle } = useModal();
   const [lists, setLists] = useState([]);
 
-  const handleSeeAll = () => {
+  const handleSeeAll = debounce(() => {
     seeAllLists(dispatch, !seeAll);
     refreshEffect(dispatch, !refresh);
-  };
+  }, 700);
 
   const getAllLists = useCallback(async () => {
     try {
       let response = await httpRequest(getLists);
-      setLists(response.responseData.data);
+      !refresh && setLists(response.responseData.data);
       if (!mountRef.current) return null;
-      refreshEffect(dispatch, !refresh);
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",

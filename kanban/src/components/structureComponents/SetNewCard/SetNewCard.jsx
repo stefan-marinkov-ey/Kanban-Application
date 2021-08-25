@@ -15,6 +15,7 @@ import {
 } from "../../../utility/constantsText";
 import Button from "../../reusableComponents/Button";
 import { StyleSetNewCard } from "./SetNewCard.style.jsx";
+import debounce from "lodash.debounce";
 
 const SetNewCard = ({ listId }) => {
   const ref = useRef();
@@ -37,7 +38,7 @@ const SetNewCard = ({ listId }) => {
     setShowField(!showField);
   };
 
-  const handleAddCart = async () => {
+  const puttingCardMethod = async () => {
     try {
       await httpRequest({
         method: "post",
@@ -53,6 +54,7 @@ const SetNewCard = ({ listId }) => {
     setShowField(!showField);
     refreshEffect(dispatch, !refresh);
   };
+  const handleAddCart = debounce(puttingCardMethod, 300);
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {

@@ -77,3 +77,5 @@ export const backToLogin = "Back to login";
 export const requiredField = "Required field";
 
 export const chosenColor = "Choose color of the card - ";
+
+export const twoSlash = " -- ";

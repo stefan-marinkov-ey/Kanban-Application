@@ -18,6 +18,7 @@ import SetNewCard from "../SetNewCard/SetNewCard";
 import { getBoardData, refreshEffect } from "../../../Context/actions";
 import { useManageContext } from "../../../Context";
 import { StyleList } from "./List.style.jsx";
+import debounce from "lodash.debounce";
 
 const List = ({ listName, listId }) => {
   const mountedRef = useRef(true);
@@ -43,12 +44,15 @@ const List = ({ listName, listId }) => {
     }
   }, [listId, refresh, dispatch, mountedRef]);
 
+  const getCardsRefresh = debounce(getAllCards, 200);
+
   useEffect(() => {
-    getAllCards();
+    getCardsRefresh();
     return () => {
       mountedRef.current = false;
+      getCardsRefresh.cancel();
     };
-  }, [getAllCards]);
+  }, [getCardsRefresh]);
 
   const getMapingCards = useMemo(
     () =>
