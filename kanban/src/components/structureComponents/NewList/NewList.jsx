@@ -19,7 +19,7 @@ import { StyleNewList } from "./NewList.style.jsx";
 
 const NewList = ({ toggle }) => {
   const { state, dispatch } = useManageContext();
-  const { refresh } = state;
+  const { refresh, idBoard } = state;
   const [listName, setListName] = useState("");
 
   const handleChange = async (e) => {
@@ -33,9 +33,10 @@ const NewList = ({ toggle }) => {
 
       const res = await httpRequest({
         method: "post",
-        url: `${baseTrelloUrl}lists?key=${apiKey}&token=${apiToken}&name=${listName}&idBoard=61152cf60660483f28f5ffda`,
+        url: `${baseTrelloUrl}lists?key=${apiKey}&token=${apiToken}&name=${listName}&idBoard=${idBoard}`,
       });
       if (res) refreshEffect(dispatch, !refresh);
+      window.location.reload();
     } catch (e) {
       getBoardData(dispatch, {
         name: "errorMessage",

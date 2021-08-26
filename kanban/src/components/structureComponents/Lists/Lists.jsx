@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
-import { getLists } from "../../../utility/constantsKeysAndUrl";
+import {
+  apiKey,
+  apiToken,
+  baseTrelloUrl,
+} from "../../../utility/constantsKeysAndUrl";
 import List from "../List/List";
 import Button from "../../reusableComponents/Button";
 import {
@@ -24,7 +28,7 @@ import { StyleLists } from "./Lists.style.jsx";
 
 const Lists = () => {
   const { state, dispatch } = useManageContext();
-  const { refresh, seeAll, errorMessage } = state;
+  const { refresh, seeAll, errorMessage, idBoard } = state;
   const { isShowing, toggle } = useModal();
   const [lists, setLists] = useState([]);
 
@@ -34,18 +38,21 @@ const Lists = () => {
   };
 
   const getAllLists = useCallback(async () => {
-    try {
-      let res = await httpRequest(getLists);
-      setLists(res.responseData.data);
-
-      if (res) refreshEffect(dispatch, !refresh);
-    } catch (e) {
-      getBoardData(dispatch, {
-        name: "errorMessage",
-        value: errorResponse,
-      });
-    }
-  }, [dispatch, refresh]);
+    if (idBoard)
+      try {
+        let res = await httpRequest({
+          method: "get",
+          url: `${baseTrelloUrl}boards/${idBoard}/lists?key=${apiKey}&token=${apiToken}`,
+        });
+        setLists(res.responseData.data);
+        if (res) refreshEffect(dispatch, !refresh);
+      } catch (e) {
+        getBoardData(dispatch, {
+          name: "errorMessage",
+          value: errorResponse,
+        });
+      }
+  }, [dispatch, refresh, idBoard]);
 
   useEffect(() => {
     !refresh && getAllLists();

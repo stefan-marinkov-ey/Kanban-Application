@@ -14,9 +14,14 @@ const Header = (props) => {
   const getBoardName = useCallback(async () => {
     try {
       let response = await httpRequest(getBoard);
+
       getBoardData(dispatch, {
         name: "nameBoard",
-        value: response.responseData.data.name,
+        value: response.responseData.data[0].name,
+      });
+      getBoardData(dispatch, {
+        name: "idBoard",
+        value: response.responseData.data[0].id,
       });
     } catch (e) {
       getBoardData(dispatch, {
