@@ -1,77 +1,92 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Button from "../../components/reusableComponents/Button";
-import InputField from "../../components/reusableComponents/Input/InputField";
-import { loginUser, useAuthState, useAuthDispatch } from "../../Context";
+import InputField from "../../components/reusableComponents/InputField/InputField";
+import { loginUser } from "../../Context";
 import { getUrl } from "../../utility/constantsKeysAndUrl";
-import { LoginPage } from "../../components/styleComponents/Container/Login_styled";
 import {
+  errorResponse,
   loginBtn,
   loginNameOrEmail,
   loginPassword,
-  validMail,
-  validPass,
   welcomeGuest,
 } from "../../utility/constantsText";
 import { numberValidate, validateNameOrEmail } from "../../utility/validation";
 import { boardRoute } from "../../utility/constantsWithRoutesAndMethods";
+import { useManageContext } from "../../Context/context";
+import { getBoardData, refreshEffect } from "../../Context/actions";
+import { StyleLoginPage } from "./Login.style.jsx";
 const Login = (props) => {
-  const dispatch = useAuthDispatch();
-  const { loading, errorMessage } = useAuthState();
+  const { state, dispatch } = useManageContext();
+  const { loading, errorMessage, refresh } = state;
 
-  const [email, setEmail] = useState("");
+  const [emailOrName, setEmailOrName] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+
+  const [validRaturnEmailOrName, setValidRaturnEmailOrName] = useState("");
+  const [validRaturnPassword, setValidRaturnPassword] = useState("");
+
+  const validateName = <span>{validRaturnEmailOrName}</span>;
+  const validatePassword = <span>{validRaturnPassword}</span>;
+  const disabledBtn =
+    validRaturnEmailOrName || validRaturnPassword ? !loading : loading;
 
   const handleLogin = async () => {
     try {
       let response = await loginUser(dispatch, getUrl);
       if (!response === undefined) return;
+      refreshEffect(dispatch, !refresh);
       props.history.push(`${boardRoute}`);
+      window.location.reload();
     } catch (error) {
-      setError(error.message);
+      getBoardData(dispatch, errorResponse);
     }
   };
 
   const handleChangeName = (e) => {
     e.preventDefault();
-    setEmail(e.target.value);
+    setEmailOrName(e.target.value);
   };
   const handleChangePassword = (e) => {
     e.preventDefault();
     setPassword(e.target.value);
   };
 
-  const getErrorMessage = () => {
-    return errorMessage ? <p>{errorMessage}</p> : error ? <p>{error}</p> : null;
-  };
+  const validationFunc = useCallback(() => {
+    setValidRaturnEmailOrName(validateNameOrEmail(emailOrName));
+    setValidRaturnPassword(numberValidate(password));
+  }, [emailOrName, password]);
+
+  useEffect(() => {
+    validationFunc();
+  }, [validationFunc]);
 
   return (
-    <LoginPage>
-      {getErrorMessage()}
+    <StyleLoginPage>
+      {errorMessage}
       <form>
         <h1>{welcomeGuest}</h1>
         <InputField
           label={loginNameOrEmail}
           onChange={handleChangeName}
-          value={email}
+          value={emailOrName}
           type="text"
         />
-        {validateNameOrEmail(email)}
+        {validateName}
         <InputField
           label={loginPassword}
           onChange={handleChangePassword}
           value={password}
           type="password"
         />
-        {numberValidate(password)}
+        {validatePassword}
         <Button
           label={loginBtn}
           type="submit"
           onClick={handleLogin}
-          loading={loading}
+          loading={disabledBtn}
         ></Button>
       </form>
-    </LoginPage>
+    </StyleLoginPage>
   );
 };
 

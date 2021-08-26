@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { httpRequest } from "../../../fetchComponent/httpRequest";
 import {
   apiKey,
@@ -6,129 +6,71 @@ import {
   baseTrelloUrl,
 } from "../../../utility/constantsKeysAndUrl";
 import Cards from "../Cards/Cards";
-import Button from "../../reusableComponents/Button";
-import { ListCardsDiv } from "../../styleComponents/Container/ListCards_style";
-import {
-  addBtn,
-  cancelBtn,
-  cardTitle,
-  newCardPlaceholder,
-} from "../../../utility/constantsText";
-import InputField from "../../reusableComponents/Input/InputField";
 
-const List = ({ listName, listId }) => {
-  const [refreshCard, setRefreshCard] = useState(false);
-  const [listTitle, setListTitle] = useState(false);
-  const [newCardName, setNewCardName] = useState("");
-  const [showField, setShowField] = useState(false);
+import ListTitle from "../ListTitle/ListTitle";
+import SetNewCard from "../SetNewCard/SetNewCard";
+import { getBoardData } from "../../../Context/actions";
+import { useManageContext } from "../../../Context";
+import { StyleList } from "./List.style.jsx";
+import { errorResponse } from "../../../utility/constantsText";
+
+const List = ({ listName, listId, lists }) => {
+  const { state, dispatch } = useManageContext();
+  const { errorMessage, refresh, seeAll } = state;
   const [cards, setCards] = useState([]);
-  const [newListName, setListName] = useState(listName || "");
 
-  const handleListName = async (e) => {
-    let value = e.target.value;
-    setListName(value);
-  };
-
-  const handleNewCardName = (e) => {
-    let value = e.target.value;
-    setNewCardName(value);
-  };
-  const handleAddCart = async () => {
-    await httpRequest({
-      method: "post",
-      url: `${baseTrelloUrl}/cards?key=${apiKey}&token=${apiToken}&idList=${listId}&name=${newCardName}`,
-    });
-
-    setShowField(!showField);
-  };
-
-  const handleCancel = () => {
-    setNewCardName("");
-    setShowField(!showField);
-  };
-
-  const handleShowTex = () => {
-    setShowField(!showField);
-  };
-  const handleListTitle = async () => {
-    await httpRequest({
-      method: "put",
-      url: `${baseTrelloUrl}lists/${listId}?key=${apiKey}&token=${apiToken}`,
-      data: {
-        name: newListName,
-      },
-    });
-    setListTitle(!listTitle);
-  };
-
-  useEffect(() => {
-    async function getAllCards() {
+  const getAllCards = useCallback(async () => {
+    try {
       let response = await httpRequest({
-        method: `get`,
+        method: "get",
         url: `${baseTrelloUrl}lists/${listId}/cards?key=${apiKey}&token=${apiToken}`,
       });
-      setCards(response.responseData.data);
+
+      if (response.responseData.data) {
+        setCards(response.responseData.data);
+      }
+    } catch (e) {
+      getBoardData(dispatch, {
+        name: "errorMessage",
+        value: errorResponse,
+      });
     }
+  }, [listId, dispatch]);
 
-    getAllCards();
-  }, [newListName, refreshCard, showField]);
+  useEffect(() => {
+    (!seeAll || seeAll) && lists.length && refresh && getAllCards();
+  }, [getAllCards, refresh, lists.length, seeAll]);
 
-  const getMapingCards = () => {
-    return cards.map((card) => {
-      return (
-        <div key={card.id}>
-          <Cards
-            key={card.id}
-            cardName={card.name}
-            cardId={card.id}
-            cardColor={card.cover.color}
-            cardDesc={card.desc}
-            setRefreshCard={setRefreshCard}
-            refreshCard={refreshCard}
-            listName={listName}
-          />
-        </div>
-      );
-    });
-  };
-
-  const getListTitle = () => {
-    return !listTitle ? (
-      <h4 onClick={handleListTitle}>{newListName}</h4>
-    ) : (
-      <div className="titleChange">
-        <InputField onChange={handleListName} value={newListName} />
-        <Button label={addBtn} onClick={handleListTitle} />
-      </div>
+  const getMapingCards = useMemo(() => {
+    return (
+      lists.length &&
+      cards &&
+      cards.map((card) => {
+        return (
+          <div key={card.id}>
+            <Cards
+              key={card.id}
+              cardName={card.name}
+              cardId={card.id}
+              cardColor={card.cover.color}
+              cardDesc={card.desc}
+              listName={listName}
+            />
+          </div>
+        );
+      })
     );
-  };
+  }, [cards, listName, lists.length]);
 
-  const getAddBtn = () =>
-    newCardName && <Button label={addBtn} onClick={handleAddCart} />;
-
-  const getShowTextarea = () => {
-    return showField ? (
-      <div className="cardField">
-        <textarea
-          placeholder={newCardPlaceholder}
-          onChange={handleNewCardName}
-        ></textarea>
-        <div>
-          {getAddBtn()}
-          <Button label={cancelBtn} onClick={handleCancel} />
-        </div>
-      </div>
-    ) : (
-      <Button label={`${addBtn}${cardTitle}`} onClick={handleShowTex}></Button>
-    );
-  };
+  const errorMessageForDisplay = errorMessage ? <h2>{errorMessage}</h2> : null;
 
   return (
-    <ListCardsDiv>
-      <div>{getListTitle()}</div>
-      {getMapingCards()}
-      {getShowTextarea()}
-    </ListCardsDiv>
+    <StyleList>
+      {errorMessageForDisplay}
+      <ListTitle listId={listId} listName={listName} />
+      {getMapingCards}
+      <SetNewCard listId={listId} />
+    </StyleList>
   );
 };
 

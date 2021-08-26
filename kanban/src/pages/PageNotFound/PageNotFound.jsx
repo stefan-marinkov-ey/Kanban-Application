@@ -1,21 +1,21 @@
 import React from "react";
 import Button from "../../components/reusableComponents/Button";
-import { NotFoundDiv } from "../../components/styleComponents/Container/Not_Found";
-import { logout, useAuthDispatch } from "../../Context";
+import { logoutAction, useManageContext } from "../../Context";
 import { backToLogin, notFound } from "../../utility/constantsText";
 import { loginRoute } from "../../utility/constantsWithRoutesAndMethods";
+import { StyleNotFound } from "./PageNotFound.style.jsx";
 
 const PageNotFound = (props) => {
-  const dispatch = useAuthDispatch();
+  const { dispatch } = useManageContext();
   const handleBack = () => {
-    logout(dispatch);
+    logoutAction(dispatch);
     props.history.push(`${loginRoute}`);
   };
   return (
-    <NotFoundDiv>
+    <StyleNotFound>
       <h1>{notFound}</h1>
       <Button label={backToLogin} onClick={handleBack} />
-    </NotFoundDiv>
+    </StyleNotFound>
   );
 };
 
