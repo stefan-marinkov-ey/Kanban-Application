@@ -59,18 +59,20 @@ const Lists = () => {
     () =>
       !lists.length ? (
         <Loading />
-      ) : !seeAll ? (
-        lists
-          .filter((list, index) => (!seeAll ? index < 3 : list))
-          .map((list) => {
-            return <List key={list.id} listName={list.name} listId={list.id} />;
-          })
       ) : (
-        lists.map((list) => {
-          return <List key={list.id} listName={list.name} listId={list.id} />;
-        })
+        lists
+          .filter((list, index) => (seeAll ? list : index < 3))
+          .map((list) => {
+            return (
+              <List
+                key={list.id}
+                listName={list.name}
+                listId={list.id}
+                lists={lists}
+              />
+            );
+          })
       ),
-
     [lists, seeAll]
   );
   const errorMessageForDisplay = errorMessage ? <h2>{errorMessage}</h2> : null;

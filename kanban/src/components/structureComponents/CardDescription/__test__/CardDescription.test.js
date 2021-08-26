@@ -5,7 +5,7 @@ import CardDescription from "../CardDescription";
 describe("Desc", () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<CardDescription />);
+    wrapper = shallow(<useManageContext><CardDescription /><useManageContext>);
   });
   it("render component", () => {
     expect(wrapper).toMatchSnapshot();
