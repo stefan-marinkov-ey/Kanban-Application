@@ -14,9 +14,9 @@ import { useManageContext } from "../../../Context";
 import { StyleList } from "./List.style.jsx";
 import { errorResponse } from "../../../utility/constantsText";
 
-const List = ({ listName, listId }) => {
+const List = ({ listName, listId, lists }) => {
   const { state, dispatch } = useManageContext();
-  const { errorMessage, refresh } = state;
+  const { errorMessage, refresh, seeAll } = state;
   const [cards, setCards] = useState([]);
 
   const getAllCards = useCallback(async () => {
@@ -38,11 +38,12 @@ const List = ({ listName, listId }) => {
   }, [listId, dispatch]);
 
   useEffect(() => {
-    !refresh && getAllCards();
-  }, [getAllCards, refresh]);
+    (!seeAll || seeAll) && lists.length && !refresh && getAllCards();
+  }, [getAllCards, refresh, lists.length, seeAll]);
 
-  const getMapingCards = useMemo(
-    () =>
+  const getMapingCards = useMemo(() => {
+    return (
+      lists.length &&
       cards &&
       cards.map((card) => {
         return (
@@ -57,9 +58,9 @@ const List = ({ listName, listId }) => {
             />
           </div>
         );
-      }),
-    [cards, listName]
-  );
+      })
+    );
+  }, [cards, listName, lists.length]);
 
   const errorMessageForDisplay = errorMessage ? <h2>{errorMessage}</h2> : null;
 
