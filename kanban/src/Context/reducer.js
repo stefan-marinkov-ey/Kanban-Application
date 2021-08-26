@@ -36,6 +36,7 @@ export const initialState = {
   nameBoard: "",
   refresh: false,
   seeAll: seeMoreLess || false,
+  idBoard: "",
 };
 
 export const AuthReducer = (initialState, action) => {

@@ -38,7 +38,7 @@ const List = ({ listName, listId, lists }) => {
   }, [listId, dispatch]);
 
   useEffect(() => {
-    (!seeAll || seeAll) && lists.length && !refresh && getAllCards();
+    (!seeAll || seeAll) && lists.length && refresh && getAllCards();
   }, [getAllCards, refresh, lists.length, seeAll]);
 
   const getMapingCards = useMemo(() => {
