@@ -10,7 +10,7 @@ const Button = ({ label, onClick, type, loading, className }) => {
       onClick={onClick}
       disabled={loading}
     >
-      {label}
+      {label}.
     </StyledPrimaryButton>
   );
 };
